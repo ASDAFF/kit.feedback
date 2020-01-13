@@ -3,7 +3,7 @@
  */
 
 /* Adding floating label. Class form_labels_floating */
-.alx_feed_back .collect_feedback_poles .collect_item_pole .collect_name
+.assembly_feed_back .collect_feedback_poles .collect_item_pole .collect_name
 {
 	position:absolute;
 	top:10px;
@@ -15,23 +15,23 @@
 	-o-transition:0.3s ease all;
 	transition:0.3s ease all;
  }
-.alx_feed_back .collect_feedback_poles .collect_item_pole .fileinput.load_file .collect_name
+.assembly_feed_back .collect_feedback_poles .collect_item_pole .fileinput.load_file .collect_name
 {
 	top:-20px;
 	left:0;
 }
-.alx_feed_back .collect_feedback_poles .collect_item_pole.is_filled .collect_name,
-.alx_feed_back .collect_feedback_poles .collect_item_pole.is_focused .collect_name {
+.assembly_feed_back .collect_feedback_poles .collect_item_pole.is_filled .collect_name,
+.assembly_feed_back .collect_feedback_poles .collect_item_pole.is_focused .collect_name {
 	top:-15px;
 	left:0;
 	font-size:12px;
 }
-.alx_feed_back .collect_feedback_poles .collect_item_pole.item_pole__captcha .collect_name
+.assembly_feed_back .collect_feedback_poles .collect_item_pole.item_pole__captcha .collect_name
 {
 	top:80px;
 }
-.alx_feed_back .collect_feedback_poles .collect_item_pole.item_pole__captcha.is_filled .collect_name,
-.alx_feed_back .collect_feedback_poles .collect_item_pole.item_pole__captcha.is_focused .collect_name
+.assembly_feed_back .collect_feedback_poles .collect_item_pole.item_pole__captcha.is_filled .collect_name,
+.assembly_feed_back .collect_feedback_poles .collect_item_pole.item_pole__captcha.is_focused .collect_name
 {
 	top:55px;
 }

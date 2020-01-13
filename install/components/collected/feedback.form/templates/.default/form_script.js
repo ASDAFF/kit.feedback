@@ -2,7 +2,7 @@
  * Copyright (c) 21/12/2019 Created By/Edited By ASDAFF asdaff.asad@yandex.ru
  */
 
-var ALXpopup={
+var ASSEMBLYpopup={
         timerId: "",
         timerReId: "",
         minw: 500,
@@ -14,12 +14,12 @@ var ALXpopup={
         {
                 var oPopup = this;
                 this.param = typeof param !== 'undefined' ? param : "";
-                this.param.popupAnimation = typeof param.popupAnimation !== 'undefined' ? param.popupAnimation : ['alx-popup-show-anime1', 'alx-popup-hide-anime1', 'alx-popup-mess-show-anime1'];
+                this.param.popupAnimation = typeof param.popupAnimation !== 'undefined' ? param.popupAnimation : ['assembly-popup-show-anime1', 'assembly-popup-hide-anime1', 'assembly-popup-mess-show-anime1'];
 
                 if(typeof param.popupWindow != 'undefined'){
                         this.canClearBlock = typeof param.filledWithErrors !== 'undefined' ? param.filledWithErrors !== 'Y' : false;
-                        $('.alx_feed_back').find("form").unbind('submit').submit(function(){
-								agreement = $(this).find('input[name=alx_fb_agreement]');
+                        $('.assembly_feed_back').find("form").unbind('submit').submit(function(){
+								agreement = $(this).find('input[name=assembly_fb_agreement]');
 								if(!agreement.length || agreement.prop("checked"))
 								{
 									oPopup.send_dataAjax(this);
@@ -54,11 +54,11 @@ var ALXpopup={
                 if(this.param.removeWindow)
                         $('.modal_form , .overlay').remove();
 
-                if($('.alx-feedb-data').length < 1)
+                if($('.assembly-feedb-data').length < 1)
                 {
-                        $('body').append('<div class="modal_form"><span class="modal_close"><span class="modal_close__left"></span><span class="modal_close__right"></span></span><div class="alx-feedb-error"></div><div class="alx_cont_popup"></div></div><div class="overlay"></div>');
+                        $('body').append('<div class="modal_form"><span class="modal_close"><span class="modal_close__left"></span><span class="modal_close__right"></span></span><div class="assembly-feedb-error"></div><div class="assembly_cont_popup"></div></div><div class="overlay"></div>');
                         $('.overlay').fadeIn(400);
-                        $('body').append('<div class="alx_fedb_wait"><div class="alx-feedb-loading"></div><div class="alx-feedb-loading-text">loading</div></div>');
+                        $('body').append('<div class="assembly_fedb_wait"><div class="assembly-feedb-loading"></div><div class="assembly-feedb-loading-text">loading</div></div>');
                         $('.modal_close,.overlay,.modal_close_ok').click(function(){ // close modal event
                                 oPopup.close();
                         });
@@ -87,7 +87,7 @@ var ALXpopup={
         autoResize: function()
         {
                 var oPopup = this;
-                if($('.alx-feedb-data').length < 1 || $('.modal_form').css('position') != 'fixed')
+                if($('.assembly-feedb-data').length < 1 || $('.modal_form').css('position') != 'fixed')
                 {
                         clearInterval(oPopup.timerReId);
                         return;
@@ -101,7 +101,7 @@ var ALXpopup={
         update: function()
         {
                 var oPopup = this;
-                if($('.alx-feedb-data').length < 1)
+                if($('.assembly-feedb-data').length < 1)
                         return;
 
                 clearInterval(oPopup.timerId);
@@ -126,9 +126,9 @@ var ALXpopup={
                         var animClass = this.param.popupAnimation[0];
 
                 $('.modal_form').delay(400).queue(function(){
-                        $('.alx_fedb_wait').fadeOut(400, function(){ $(this).remove() });
+                        $('.assembly_fedb_wait').fadeOut(400, function(){ $(this).remove() });
                         $('.modal_form').addClass(animClass);
-                        $('.alx-feedb-data').addClass('alx-feedb-data-view');
+                        $('.assembly-feedb-data').addClass('assembly-feedb-data-view');
                 });
 
                 if($('.modal_form').css('z-index')<0)
@@ -147,9 +147,9 @@ var ALXpopup={
         {
                 var oPopup = this;
                 var animClass = this.param.popupAnimation[1];
-                $('.alx-feedb-data').css({'maxHeight': ($(window).height()-100)+'px'});
+                $('.assembly-feedb-data').css({'maxHeight': ($(window).height()-100)+'px'});
                 $('.modal_form').addClass(animClass);
-                $('.overlay, .alx_fedb_wait, .modal_form').fadeOut(400);
+                $('.overlay, .assembly_fedb_wait, .modal_form').fadeOut(400);
 
                 setTimeout(function(){
                         if($('.modal_form').css('z-index')>2000)
@@ -159,15 +159,15 @@ var ALXpopup={
                 setTimeout(function(){ // for ie
                         if($('.modal_form').css('opacity')>0)
                                 $('.modal_form').css({'opacity':0, 'marginTop': '-100000px'});
-                        if(oPopup.removeWindow || ($('.alx-feedb-data-errorLoading').length > 1))
+                        if(oPopup.removeWindow || ($('.assembly-feedb-data-errorLoading').length > 1))
                                 $('.modal_form, .overlay').remove();
                 }, 500);
         },
         show_error: function()
         {
                 var oPopup = this;
-                if($('.alx-feedb-data').length < 1){
-                        $('.alx_cont_popup').html('<div class="alx-feedb-data alx-feedb-data-errorLoading">Loading error. Try again.<br /><a href="" onClick="ALXpopup.close(); return false" class="alx-feedb-data-close">close window</a></div>');
+                if($('.assembly-feedb-data').length < 1){
+                        $('.assembly_cont_popup').html('<div class="assembly-feedb-data assembly-feedb-data-errorLoading">Loading error. Try again.<br /><a href="" onClick="ASSEMBLYpopup.close(); return false" class="assembly-feedb-data-close">close window</a></div>');
                         oPopup.update();
                 }
         },
@@ -181,9 +181,9 @@ var ALXpopup={
                                 url: this.param.url,
                                 async:true,
                                 success:function(data){
-                                        $('.alx_cont_popup').html('<div class="alx-feedb-data">'+data+'</div>');
-                                        $('.alx-feedb-data').find("form").submit(function(){
-												agreement = $(this).find('input[name=alx_fb_agreement]');
+                                        $('.assembly_cont_popup').html('<div class="assembly-feedb-data">'+data+'</div>');
+                                        $('.assembly-feedb-data').find("form").submit(function(){
+												agreement = $(this).find('input[name=assembly_fb_agreement]');
 												if(!agreement.length || agreement.prop("checked"))
 												{
 													oPopup.send_dataAjax(this);
@@ -198,19 +198,19 @@ var ALXpopup={
         reload_contentAjax: function()
         {
                 var oPopup = this;
-                $('body').append('<div class="alx_fedb_wait"><div class="alx-feedb-loading"></div><div class="alx-feedb-loading-text">loading</div></div>');
+                $('body').append('<div class="assembly_fedb_wait"><div class="assembly-feedb-loading"></div><div class="assembly-feedb-loading-text">loading</div></div>');
                 $.ajax({
                         type:'POST',
                         data: this.param.data,
                         url: this.param.url,
                         async:true,
                         success:function(data){
-                                $('.alx-feedb-data').remove();
-                                $('.alx_fedb_wait').remove();
-                                $('.alx_cont_popup').html('<div class="alx-feedb-data">'+data+'</div>');
-                                $('.alx-feedb-data').addClass('alx-feedb-data-view');
-                                $('.alx-feedb-data').find("form").submit(function(){
-											agreement = $(this).find('input[name=alx_fb_agreement]');
+                                $('.assembly-feedb-data').remove();
+                                $('.assembly_fedb_wait').remove();
+                                $('.assembly_cont_popup').html('<div class="assembly-feedb-data">'+data+'</div>');
+                                $('.assembly-feedb-data').addClass('assembly-feedb-data-view');
+                                $('.assembly-feedb-data').find("form").submit(function(){
+											agreement = $(this).find('input[name=assembly_fb_agreement]');
 											if(!agreement.length || agreement.prop("checked"))
 											{
 												oPopup.send_dataAjax(this);
@@ -235,9 +235,9 @@ var ALXpopup={
                 }
                 $('.modal_form').css({'marginLeft': mLeft, 'width': w, 'position': 'fixed', 'top': '30%', 'marginTop': '0'});
                 if(typeof param.fid!='undefined')
-                        $('#alx_feed_back_'+param.fid+'.alx-feedb-data, #alx_feed_back_'+param.fid+'.alx_feed_back').empty();
+                        $('#assembly_feed_back_'+param.fid+'.assembly-feedb-data, #assembly_feed_back_'+param.fid+'.assembly_feed_back').empty();
                 else
-                        $('.modal_form .alx-feedb-data,.alx_feed_back').empty();
+                        $('.modal_form .assembly-feedb-data,.assembly_feed_back').empty();
                 $('.modal_close_ok').click(function(){oPopup.close();});
         },
         send_dataAjax: function(form)
@@ -271,33 +271,33 @@ var ALXpopup={
                                 }
 
                                 if(formData){
-                                        $('#alx_feed_back_'+sID+'.alx_feed_back').html(formData);
+                                        $('#assembly_feed_back_'+sID+'.assembly_feed_back').html(formData);
                                 }
 
-                                if(typeof sID!='undefined' && $('#alx_feed_back_'+sID).siblings(".alx-feedb-error").length>0){
-                                        $('#alx_feed_back_'+sID).siblings(".alx-feedb-error").html(errData).addClass(animClass);
+                                if(typeof sID!='undefined' && $('#assembly_feed_back_'+sID).siblings(".assembly-feedb-error").length>0){
+                                        $('#assembly_feed_back_'+sID).siblings(".assembly-feedb-error").html(errData).addClass(animClass);
                                 }
-                                else if(typeof sID!='undefined' && $('#alx_feed_back_'+sID).parent().parent().siblings(".alx-feedb-error").length>0){
-                                        $('#alx_feed_back_'+sID).parent().parent().siblings(".alx-feedb-error").html(errData).addClass(animClass);
+                                else if(typeof sID!='undefined' && $('#assembly_feed_back_'+sID).parent().parent().siblings(".assembly-feedb-error").length>0){
+                                        $('#assembly_feed_back_'+sID).parent().parent().siblings(".assembly-feedb-error").html(errData).addClass(animClass);
                                 }
                                 else{
-                                        $('.alx-feedb-error').html(errData).addClass(animClass);
+                                        $('.assembly-feedb-error').html(errData).addClass(animClass);
                                 }
 
-                                if(oPopup.canClearBlock) $('#alx_feed_back_'+sID+'.alx_feed_back').empty();
+                                if(oPopup.canClearBlock) $('#assembly_feed_back_'+sID+'.assembly_feed_back').empty();
                                 return true;
                         }
                 });
         }
 }
 
-function alx_addFormGroupFocus(element){
+function assembly_addFormGroupFocus(element){
         var $element = $(element);
         if(!$element.prop('disabled')){
                 $element.parents(".collect_item_pole").addClass("is_focused");
         }
 }
-function alx_removeFormGroupFocus(element){
+function assembly_removeFormGroupFocus(element){
         var $element = $(element);
         $(element).parents(".collect_item_pole").removeClass("is_focused is_filled");
         if($element.val().length !== 0){
@@ -307,15 +307,15 @@ function alx_removeFormGroupFocus(element){
 
 $(document).ready(function(){
 
-        $('.alx_feed_back .item_pole__captcha .collect_name').each(function(i,elem){
+        $('.assembly_feed_back .item_pole__captcha .collect_name').each(function(i,elem){
                 $(elem).next().find('input').css({'height':$(elem).height()+'px'});
         });
 
         $(document).on("focus", ".collect_item_pole .collect_inputtext,.collect_item_pole .collect_textarea,.collect_item_pole .collect_select,.collect_item_pole .collect_textarea,.collect_item_pole .collect_file_input_add", function(){
-                alx_addFormGroupFocus(this);
+                assembly_addFormGroupFocus(this);
         })
         .on("blur", ".collect_item_pole .collect_inputtext,.collect_item_pole .collect_textarea,.collect_item_pole .collect_select,.collect_item_pole .collect_textarea,.collect_item_pole .collect_file_input_add", function(){
-                alx_removeFormGroupFocus(this);
+                assembly_removeFormGroupFocus(this);
         });
 });
 function poleError(pole){
@@ -363,12 +363,12 @@ function validateForm(form){
         }
         return true;
 }
-function ALX_captcha_Error(){
+function ASSEMBLY_captcha_Error(){
         $('.item_pole__captcha').addClass('error_pole');
 }
-function ALX_captcha_Error(){
+function ASSEMBLY_captcha_Error(){
         $('.item_pole__captcha').addClass('error_pole');
 }
-function ALX_fileError(field){
+function ASSEMBLY_fileError(field){
         field.addClass('error_fpole');
 }

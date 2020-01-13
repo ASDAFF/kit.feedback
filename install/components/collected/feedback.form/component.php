@@ -16,26 +16,26 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
  * @global CUser $USER
  */
 
-$ALX = "FID".$arParams["FORM_ID"];
+$ASSEMBLY = "FID".$arParams["FORM_ID"];
 
-$ALREADY_SEND_MESSAGE = $_SESSION['alx_send_success'.$ALX] == 'Y';
+$ALREADY_SEND_MESSAGE = $_SESSION['assembly_send_success'.$ASSEMBLY] == 'Y';
 
 if($_SERVER["REQUEST_METHOD"]=="POST")
 {
-	if($_POST["OPEN_POPUP"] == $ALX || $_POST["FEEDBACK_FORM_".$ALX])
+	if($_POST["OPEN_POPUP"] == $ASSEMBLY || $_POST["FEEDBACK_FORM_".$ASSEMBLY])
 	{
 		CUtil::JSPostUnescape();
 		$APPLICATION->RestartBuffer();
 	}
 }
 
-if($arParams['ALX_LINK_POPUP']=='Y')
+if($arParams['ASSEMBLY_LINK_POPUP']=='Y')
 {
 	if($_SERVER["REQUEST_METHOD"]=="POST")
 	{
-		if($_POST["OPEN_POPUP"] == $ALX || $_POST["FEEDBACK_FORM_".$ALX])
+		if($_POST["OPEN_POPUP"] == $ASSEMBLY || $_POST["FEEDBACK_FORM_".$ASSEMBLY])
 		{
-			$arParams['ALX_GET_POPUP'.$ALX] = 'N';
+			$arParams['ASSEMBLY_GET_POPUP'.$ASSEMBLY] = 'N';
 
 			require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 		}
@@ -48,13 +48,13 @@ if($arParams['ALX_LINK_POPUP']=='Y')
 }
 else
 {
-	$arParams['ALX_GET_POPUP'.$ALX] = 'Y';
+	$arParams['ASSEMBLY_GET_POPUP'.$ASSEMBLY] = 'Y';
 }
 
 if(is_array($arParams["PROPERTY_FIELDS_REQUIRED"]))
 {
 	foreach($arParams["PROPERTY_FIELDS_REQUIRED"] as $k => $v)
-		$arParams["PROPERTY_FIELDS_REQUIRED"][$k] = $v."_".$ALX;
+		$arParams["PROPERTY_FIELDS_REQUIRED"][$k] = $v."_".$ASSEMBLY;
 }
 
 $arResult["FORM_ERRORS"] = Array();
@@ -67,7 +67,7 @@ if(!CModule::IncludeModule("iblock"))
 
 if(!CModule::IncludeModule("collected.feedback"))
 {
-	ShowError(GetMessage("ALX_FEEDBACK_NOT_INSTALLED"));
+	ShowError(GetMessage("ASSEMBLY_FEEDBACK_NOT_INSTALLED"));
 	return;
 }
 
@@ -101,7 +101,7 @@ if(is_array($_FILES["myFile"]["name"]))
 	foreach($_FILES["myFile"]["name"] as $k => $value)
 	{
 		$codeID = trim(htmlspecialcharsEx($_POST["codeFileFields"][$k]));
-		$code = str_replace("_".$ALX, "", trim(htmlspecialcharsEx($_POST["codeFileFields"][$k])));
+		$code = str_replace("_".$ASSEMBLY, "", trim(htmlspecialcharsEx($_POST["codeFileFields"][$k])));
 
 		$arParamTypeFile = array();
 		$arParamTypeFileTrim = array();
@@ -137,11 +137,11 @@ if(is_array($_FILES["myFile"]["name"]))
 			}
 			elseif(!empty($_FILES["myFile"]["tmp_name"][$k]))
 			{
-				$errorFile[$codeID] .= GetMessage("ALX_FIELD1").$arTypeFile[$code]["NAME"].'". '.GetMessage("DISABLE_FILE");
-				$arErrFile[$codeID] .= GetMessage("ALX_FIELD1").$arTypeFile[$code]["NAME"].'". '.GetMessage("DISABLE_FILE");
+				$errorFile[$codeID] .= GetMessage("ASSEMBLY_FIELD1").$arTypeFile[$code]["NAME"].'". '.GetMessage("DISABLE_FILE");
+				$arErrFile[$codeID] .= GetMessage("ASSEMBLY_FIELD1").$arTypeFile[$code]["NAME"].'". '.GetMessage("DISABLE_FILE");
 			}
 			elseif(in_array($k, $arParams["PROPERTY_FIELDS_REQUIRED"]) && $_FILES["myFile"]["error"][$k] == 4)
-				$errorFile[$codeID] .= GetMessage("ALX_FIELD1").$arTypeFile[$code]["NAME"].'". '.GetMessage("EMPTY_FILE");
+				$errorFile[$codeID] .= GetMessage("ASSEMBLY_FIELD1").$arTypeFile[$code]["NAME"].'". '.GetMessage("EMPTY_FILE");
 		}
 		else
 		{
@@ -164,11 +164,11 @@ if(is_array($_FILES["myFile"]["name"]))
 				}
 				elseif(!empty($_FILES["myFile"]["tmp_name"][$k][$mk]))
 				{
-					$arErrFile[$codeID] .= GetMessage("ALX_FIELD1").$arTypeFile[$code]["NAME"].'". '.GetMessage("DISABLE_FILE");
-					$errorFile[$codeID] .= GetMessage("ALX_FIELD1").$arTypeFile[$code]["NAME"].'". '.GetMessage("DISABLE_FILE");
+					$arErrFile[$codeID] .= GetMessage("ASSEMBLY_FIELD1").$arTypeFile[$code]["NAME"].'". '.GetMessage("DISABLE_FILE");
+					$errorFile[$codeID] .= GetMessage("ASSEMBLY_FIELD1").$arTypeFile[$code]["NAME"].'". '.GetMessage("DISABLE_FILE");
 				}
 				elseif(in_array($k, $arParams["PROPERTY_FIELDS_REQUIRED"]) && $_FILES["myFile"]["error"][$k][$mk] == 4)
-					$errorFile[$codeID] .= GetMessage("ALX_FIELD1").$arTypeFile[$code]["NAME"].'". '.GetMessage("EMPTY_FILE");
+					$errorFile[$codeID] .= GetMessage("ASSEMBLY_FIELD1").$arTypeFile[$code]["NAME"].'". '.GetMessage("EMPTY_FILE");
 			}
 		}
 	}
@@ -186,9 +186,9 @@ if(is_array($_POST["codeFileFields"]))
 			{
 				if(empty($_FILES["myFile"]["name"][$v]) && empty($_FILES["myFile"]["name"][$k]))
 				{
-					$code = str_replace("_".$ALX, "", trim(htmlspecialcharsEx($v)));
+					$code = str_replace("_".$ASSEMBLY, "", trim(htmlspecialcharsEx($v)));
 					$codeID = trim(htmlspecialcharsEx($v));
-					$errorFile[$codeID] .= GetMessage("ALX_FIELD1").$arTypeFile[$code]["NAME"].'". '.GetMessage("EMPTY_FILE");
+					$errorFile[$codeID] .= GetMessage("ASSEMBLY_FIELD1").$arTypeFile[$code]["NAME"].'". '.GetMessage("EMPTY_FILE");
 				}
 			}
 		}
@@ -206,11 +206,11 @@ if($arParams["SEND_MAIL"] == "Y")
 {
 	$arParams["USER_EVENT"] = trim(htmlspecialcharsEx($arParams["USER_EVENT"]));
 	if(strlen($arParams["USER_EVENT"]) <= 0)
-		$arParams["USER_EVENT"] = "ALX_FEEDBACK_FORM_SEND_MAIL";
+		$arParams["USER_EVENT"] = "ASSEMBLY_FEEDBACK_FORM_SEND_MAIL";
 }
 
 if(strlen($arParams["EVENT_TYPE"]) <= 0)
-	$arParams["EVENT_TYPE"] = "ALX_FEEDBACK_FORM";
+	$arParams["EVENT_TYPE"] = "ASSEMBLY_FEEDBACK_FORM";
 
 // parameters name of property fields saving name, email and phone for auto-complete
 $arAutompleteParams = array(
@@ -219,18 +219,18 @@ $arAutompleteParams = array(
 	"PROPS_AUTOCOMPLETE_PERSONAL_PHONE"
 );
 
-if($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX]
+if($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ASSEMBLY]
 	&& $arParams["SECTION_FIELDS_ENABLE"] == "Y" && $_POST["REFRESH"] == "Y")
 {
-	$_POST["type_question_".$ALX] = trim(htmlspecialcharsEx($_POST["type_question_".$ALX]));
+	$_POST["type_question_".$ASSEMBLY] = trim(htmlspecialcharsEx($_POST["type_question_".$ASSEMBLY]));
 
-	if(!empty($arParams["SECTION_FIELDS".$_POST["type_question_".$ALX]]))
+	if(!empty($arParams["SECTION_FIELDS".$_POST["type_question_".$ASSEMBLY]]))
 	{
-		$arResult["CURSECT_FIELDS"] = $arCurFields = $arParams["SECTION_FIELDS".trim($_POST["type_question_".$ALX])];
+		$arResult["CURSECT_FIELDS"] = $arCurFields = $arParams["SECTION_FIELDS".trim($_POST["type_question_".$ASSEMBLY])];
 	}
 	$ALREADY_SEND_MESSAGE = false;
 }
-elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y' && check_bitrix_sessid())
+elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ASSEMBLY] == 'Y' && check_bitrix_sessid())
 {
 	$arFields = $_POST["FIELDS"];
 
@@ -242,35 +242,35 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y
 
 	$rsProp = CIBlockProperty::GetList(Array(), Array("ACTIVE"=>"Y", "IBLOCK_ID"=>$arParams["IBLOCK_ID"]));
 	while($arrProp = $rsProp->Fetch())
-		$arFieldsName[$arrProp["CODE"]."_".$ALX] = $arrProp;
+		$arFieldsName[$arrProp["CODE"]."_".$ASSEMBLY] = $arrProp;
 
 	foreach($arParams["PROPERTY_FIELDS_REQUIRED"] as $k => $v)
 	{
 		if(is_array($_POST["codeFileFields"]))
 		{
-			if(!array_key_exists($v, $arFields) && !in_array($v, $_POST["codeFileFields"]) && $v != "FEEDBACK_TEXT_".$ALX){
-				$arResult["FORM_ERRORS"]["EMPTY_FIELD"][$v] = GetMessage("ALX_FIELD1").$arFieldsName[$v]["NAME"].GetMessage("ALX_FIELD2");
+			if(!array_key_exists($v, $arFields) && !in_array($v, $_POST["codeFileFields"]) && $v != "FEEDBACK_TEXT_".$ASSEMBLY){
+				$arResult["FORM_ERRORS"]["EMPTY_FIELD"][$v] = GetMessage("ASSEMBLY_FIELD1").$arFieldsName[$v]["NAME"].GetMessage("ASSEMBLY_FIELD2");
 			}
 		}
 		else
 		{
-			if(!array_key_exists($v, $arFields) && $v != "FEEDBACK_TEXT_".$ALX){
-				$arResult["FORM_ERRORS"]["EMPTY_FIELD"][$v] = GetMessage("ALX_FIELD1").$arFieldsName[$v]["NAME"].GetMessage("ALX_FIELD2");
+			if(!array_key_exists($v, $arFields) && $v != "FEEDBACK_TEXT_".$ASSEMBLY){
+				$arResult["FORM_ERRORS"]["EMPTY_FIELD"][$v] = GetMessage("ASSEMBLY_FIELD1").$arFieldsName[$v]["NAME"].GetMessage("ASSEMBLY_FIELD2");
 			}
 		}
 	}
 
 	if($arParams['USER_CONSENT'] == 'Y')
 	{
-		if(!isset($_POST['alx_fb_agreement']))
+		if(!isset($_POST['assembly_fb_agreement']))
 		{
-			$arResult["FORM_ERRORS"]["EMPTY_FIELD"]["alx_fb_agreement"] = GetMessage('COLLECT_ERROR_TEXT_AGREEMENT');
+			$arResult["FORM_ERRORS"]["EMPTY_FIELD"]["assembly_fb_agreement"] = GetMessage('COLLECT_ERROR_TEXT_AGREEMENT');
 		}
 	}
 	foreach($arFields as $k => $v)
 	{
 		$k = htmlspecialcharsbx($k);
-		$k = str_replace("_".$ALX, "", $k);
+		$k = str_replace("_".$ASSEMBLY, "", $k);
 		if(!is_array($v))
 			$val = trim($v);
 
@@ -282,15 +282,15 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y
 			}
 			elseif(strlen($val) <= 0)
 			{
-				if(in_array($k."_".$ALX, $arParams["PROPERTY_FIELDS_REQUIRED"]))
-					$arResult["FORM_ERRORS"]["EMPTY_FIELD"][$k."_".$ALX] = GetMessage("ALX_FIELD1").$arFieldsName[$k."_".$ALX]["NAME"].GetMessage("ALX_FIELD2");
+				if(in_array($k."_".$ASSEMBLY, $arParams["PROPERTY_FIELDS_REQUIRED"]))
+					$arResult["FORM_ERRORS"]["EMPTY_FIELD"][$k."_".$ASSEMBLY] = GetMessage("ASSEMBLY_FIELD1").$arFieldsName[$k."_".$ASSEMBLY]["NAME"].GetMessage("ASSEMBLY_FIELD2");
 			}
 			elseif($k == "EMAIL" && strlen($val) > 0)
 			{
 				if(check_email($val))
 					$PROPS[$k] = $val;
 				else
-					$arResult["FORM_ERRORS"]["EMPTY_FIELD"][$k."_".$ALX] = GetMessage("INCORRECT_MAIL");
+					$arResult["FORM_ERRORS"]["EMPTY_FIELD"][$k."_".$ASSEMBLY] = GetMessage("INCORRECT_MAIL");
 			}
 			
 			else
@@ -300,7 +300,7 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y
 					if(check_email($val))
 						$PROPS[$k] = $val;
 					else
-						$arResult["FORM_ERRORS"]["EMPTY_FIELD"][$k."_".$ALX] = GetMessage("INCORRECT_MAIL");
+						$arResult["FORM_ERRORS"]["EMPTY_FIELD"][$k."_".$ASSEMBLY] = GetMessage("INCORRECT_MAIL");
 
 					if($arParams["PROPS_AUTOCOMPLETE_VETO"]=="Y" && $USER->IsAuthorized())
 					{
@@ -311,12 +311,12 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y
 							if(in_array($k, $arParams["PROPS_AUTOCOMPLETE_EMAIL"]))
 								$PROPS[$k] = $USER->GetEmail();
 						}
-						unset($arResult["FORM_ERRORS"]["EMPTY_FIELD"][$k."_".$ALX]);
+						unset($arResult["FORM_ERRORS"]["EMPTY_FIELD"][$k."_".$ASSEMBLY]);
 					}
 				}
 				else
 				{
-					if($arFieldsName[$k."_".$ALX]["USER_TYPE"] == "HTML")
+					if($arFieldsName[$k."_".$ASSEMBLY]["USER_TYPE"] == "HTML")
 					{
 						$PROPS[$k] = array(
 							"VALUE" => array(
@@ -367,36 +367,36 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y
 		}
 	}
 
-	$arResult["FEEDBACK_TEXT"] = trim($_POST["FEEDBACK_TEXT_".$ALX]);
+	$arResult["FEEDBACK_TEXT"] = trim($_POST["FEEDBACK_TEXT_".$ASSEMBLY]);
 	if(strlen($arResult["FEEDBACK_TEXT"]) <= 0)
-		if(in_array("FEEDBACK_TEXT_".$ALX, $arParams["PROPERTY_FIELDS_REQUIRED"]))
+		if(in_array("FEEDBACK_TEXT_".$ASSEMBLY, $arParams["PROPERTY_FIELDS_REQUIRED"]))
 		{
-			$arResult["FORM_ERRORS"]["EMPTY_FIELD"]["FEEDBACK_TEXT_".$ALX] = GetMessage("ALX_FIELD1").(!empty($arParams["FB_TEXT_NAME"]) ? $arParams["FB_TEXT_NAME"] : GetMessage("ALX_CP_EVENT_TEXT_MESSAGE")).GetMessage("ALX_FIELD2");
+			$arResult["FORM_ERRORS"]["EMPTY_FIELD"]["FEEDBACK_TEXT_".$ASSEMBLY] = GetMessage("ASSEMBLY_FIELD1").(!empty($arParams["FB_TEXT_NAME"]) ? $arParams["FB_TEXT_NAME"] : GetMessage("ASSEMBLY_CP_EVENT_TEXT_MESSAGE")).GetMessage("ASSEMBLY_FIELD2");
 		}
 
 	if(count($PROPS) == 0 && empty($arResult["FEEDBACK_TEXT"]) && count($arResult["FORM_ERRORS"]["EMPTY_FIELD"]) == 0)
-		$arResult["FORM_ERRORS"]["EMPTY_FIELD"]["ALL_EMPTY"] = GetMessage("ALX_ERROR_ALL_EMPTY");
+		$arResult["FORM_ERRORS"]["EMPTY_FIELD"]["ALL_EMPTY"] = GetMessage("ASSEMBLY_ERROR_ALL_EMPTY");
 
 	$PROPS["USERIP"] = $_SERVER["REMOTE_ADDR"];
 
 	$PROPS["USER_ID"] = $USER->GetID();
 
 	if($arParams["ADD_HREF_LINK"] != "N")
-		$PROPS["HREF_LINK"] = htmlspecialcharsEx($_POST["HREF_LINK_".$ALX]);
+		$PROPS["HREF_LINK"] = htmlspecialcharsEx($_POST["HREF_LINK_".$ASSEMBLY]);
 
 	if($arParams["USE_CAPTCHA"])
 	{
 		if($arParams["CAPTCHA_TYPE"] == "recaptcha") // Google reCAPTCHA
 		{
-			if(COption::GetOptionString('collected.feedback', 'ALX_COMMON_CRM') == "Y")
+			if(COption::GetOptionString('collected.feedback', 'ASSEMBLY_COMMON_CRM') == "Y")
 			{
-				$site_key = COption::GetOptionString('collected.feedback', 'ALX_RECAPTCHA_SITE_KEY');
-				$server_key = COption::GetOptionString('collected.feedback', 'ALX_RECAPTCHA_SECRET_KEY');
+				$site_key = COption::GetOptionString('collected.feedback', 'ASSEMBLY_RECAPTCHA_SITE_KEY');
+				$server_key = COption::GetOptionString('collected.feedback', 'ASSEMBLY_RECAPTCHA_SECRET_KEY');
 			}
 			else
 			{
-				$site_key = COption::GetOptionString('collected.feedback', 'ALX_RECAPTCHA_SITE_KEY_'.SITE_ID);
-				$server_key = COption::GetOptionString('collected.feedback', 'ALX_RECAPTCHA_SECRET_KEY_'.SITE_ID);
+				$site_key = COption::GetOptionString('collected.feedback', 'ASSEMBLY_RECAPTCHA_SITE_KEY_'.SITE_ID);
+				$server_key = COption::GetOptionString('collected.feedback', 'ASSEMBLY_RECAPTCHA_SECRET_KEY_'.SITE_ID);
 			}
 
 			$strResponse = $_POST["g-recaptcha-response"];
@@ -409,7 +409,7 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y
 			if (!function_exists('curl_init'))
 			{
 				if(!$text = file_get_contents($strUrl))
-					$arResult["FORM_ERRORS"]["CAPTCHA_WORD"]["ALX_CP_WRONG_CAPTCHA"] = GetMessage("ALX_CP_WRONG_RECAPTCHA_NOT");
+					$arResult["FORM_ERRORS"]["CAPTCHA_WORD"]["ASSEMBLY_CP_WRONG_CAPTCHA"] = GetMessage("ASSEMBLY_CP_WRONG_RECAPTCHA_NOT");
 			}
 			else
 			{
@@ -425,7 +425,7 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y
 				curl_close($ch);
 
 				if ($errno)
-					$arResult["FORM_ERRORS"]["CAPTCHA_WORD"]["ALX_CP_WRONG_CAPTCHA"] .= GetMessage("ALX_CP_WRONG_RECAPTCHA_NOT");
+					$arResult["FORM_ERRORS"]["CAPTCHA_WORD"]["ASSEMBLY_CP_WRONG_CAPTCHA"] .= GetMessage("ASSEMBLY_CP_WRONG_RECAPTCHA_NOT");
 			}
 			$answers = json_decode($text, true);
 			if(!$answers["success"])
@@ -436,14 +436,14 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y
 					foreach($answers["error-codes"] as $err)
 					{
 						if($err == 'missing-input-response')
-							$strCaptchaErr .= GetMessage("ALX_CP_WRONG_RECAPTCHA_MIR");
+							$strCaptchaErr .= GetMessage("ASSEMBLY_CP_WRONG_RECAPTCHA_MIR");
 						elseif($err == 'invalid-input-response')
-							$strCaptchaErr .= GetMessage("ALX_CP_WRONG_RECAPTCHA_IIR");
+							$strCaptchaErr .= GetMessage("ASSEMBLY_CP_WRONG_RECAPTCHA_IIR");
 						else
-							$strCaptchaErr .= GetMessage("ALX_CP_WRONG_RECAPTCHA_ALL");
+							$strCaptchaErr .= GetMessage("ASSEMBLY_CP_WRONG_RECAPTCHA_ALL");
 					}
 				}
-				$arResult["FORM_ERRORS"]["CAPTCHA_WORD"]["ALX_CP_WRONG_CAPTCHA"] .= $strCaptchaErr;
+				$arResult["FORM_ERRORS"]["CAPTCHA_WORD"]["ASSEMBLY_CP_WRONG_CAPTCHA"] .= $strCaptchaErr;
 			}
 		}
 		else // system CAPTCHA
@@ -451,19 +451,19 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y
 			$captcha_sid = $_POST['captcha_sid'];
 			$captcha_word = $_POST['captcha_word'];
 			if(!$APPLICATION->CaptchaCheckCode($captcha_word, $captcha_sid))
-				$arResult["FORM_ERRORS"]["CAPTCHA_WORD"]["ALX_CP_WRONG_CAPTCHA"] = GetMessage("ALX_CP_WRONG_CAPTCHA");
+				$arResult["FORM_ERRORS"]["CAPTCHA_WORD"]["ASSEMBLY_CP_WRONG_CAPTCHA"] = GetMessage("ASSEMBLY_CP_WRONG_CAPTCHA");
 		}
 	}
 
 	if(count($arResult["FORM_ERRORS"]) <= 0)
 	{
 		$arMessForm = array();
-		$_POST["type_question_".$ALX] = trim(htmlspecialcharsEx($_POST["type_question_".$ALX]));
+		$_POST["type_question_".$ASSEMBLY] = trim(htmlspecialcharsEx($_POST["type_question_".$ASSEMBLY]));
 
 		// add element
 		$arElementFields = Array(
 			"IBLOCK_ID"				=> $arParams["IBLOCK_ID"],
-			"IBLOCK_SECTION_ID"		=> $_POST["type_question_".$ALX],
+			"IBLOCK_SECTION_ID"		=> $_POST["type_question_".$ASSEMBLY],
 			"ACTIVE"				=> $arParams["ACTIVE_ELEMENT"],
 			"PROPERTY_VALUES"		=> $PROPS,
 		);
@@ -472,9 +472,9 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y
 		else
 			$arElementFields["PREVIEW_TEXT"] = $arResult["FEEDBACK_TEXT"];
 
-		if(!empty($arParams["SECTION_MAIL".$_POST["type_question_".$ALX]]))
+		if(!empty($arParams["SECTION_MAIL".$_POST["type_question_".$ASSEMBLY]]))
 		{
-			$emailTo = trim($arParams["SECTION_MAIL".$_POST["type_question_".$ALX]]);
+			$emailTo = trim($arParams["SECTION_MAIL".$_POST["type_question_".$ASSEMBLY]]);
 			$emailTo .= ", ".trim($arParams["SECTION_MAIL_ALL"]);
 		}
 		else
@@ -485,11 +485,11 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y
 		if ($arParams["ACTIVE_ELEMENT"] == "Y")
 			$arElementFields["ACTIVE"] == "Y";
 
-		if ($arParams['NAME_ELEMENT'] == "ALX_DATE")
+		if ($arParams['NAME_ELEMENT'] == "ASSEMBLY_DATE")
 		{
 			$arElementFields["NAME"] = ConvertTimeStamp();
 		}
-		elseif ($arParams['NAME_ELEMENT'] == "ALX_TEXT")
+		elseif ($arParams['NAME_ELEMENT'] == "ASSEMBLY_TEXT")
 		{
 			$arElementFields["NAME"] = $arResult["FEEDBACK_TEXT"];
 		}
@@ -515,9 +515,9 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y
 		{
 			$strMessageForm = "";
 			$strMessCategoty = "";
-			$_POST["type_question_name_" . $ALX] = trim(htmlspecialcharsEx($_POST["type_question_name_" . $ALX]));
-			if (!empty($_POST["type_question_name_" . $ALX]))
-				$strMessCategoty = GetMessage("ALX_TREATMENT_CATEGORY") . ": " . $_POST["type_question_name_" . $ALX] . "\n\n";
+			$_POST["type_question_name_" . $ASSEMBLY] = trim(htmlspecialcharsEx($_POST["type_question_name_" . $ASSEMBLY]));
+			if (!empty($_POST["type_question_name_" . $ASSEMBLY]))
+				$strMessCategoty = GetMessage("ASSEMBLY_TREATMENT_CATEGORY") . ": " . $_POST["type_question_name_" . $ASSEMBLY] . "\n\n";
 
 			$dbProps = CIBlockElement::GetProperty($arParams["IBLOCK_ID"], $ID, array("sort" => "asc"));
 
@@ -647,8 +647,8 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y
 				$eventID = $et->Add(array(
 					"LID" => LANGUAGE_ID,
 					"EVENT_NAME" => trim(htmlspecialcharsEx($arParams["EVENT_TYPE"])),
-					"NAME" => GetMessage("ALX_CP_EVENT_NAME"),
-					"DESCRIPTION" => GetMessage("ALX_CP_EVENT_DESCRIPTION")
+					"NAME" => GetMessage("ASSEMBLY_CP_EVENT_NAME"),
+					"DESCRIPTION" => GetMessage("ASSEMBLY_CP_EVENT_DESCRIPTION")
 				));
 				$emess = new CEventMessage;
 				$arMessage = Array(
@@ -657,10 +657,10 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y
 					"EVENT_NAME" => trim(htmlspecialcharsEx($arParams["EVENT_TYPE"])),
 					"EMAIL_FROM" => "#EMAIL_FROM#",
 					"EMAIL_TO" => "#DEFAULT_EMAIL_FROM#, #SECTION_EMAIL_TO#",
-					"SUBJECT" => GetMessage("ALX_CP_EVENT_MESSAGE_SUBJECT"),
+					"SUBJECT" => GetMessage("ASSEMBLY_CP_EVENT_MESSAGE_SUBJECT"),
 					"BODY_TYPE" => "text",
 					"BCC" => "#BCC#",
-					"MESSAGE" => GetMessage("ALX_CP_EVENT_MESSAGE"),
+					"MESSAGE" => GetMessage("ASSEMBLY_CP_EVENT_MESSAGE"),
 				);
 
 				if (!$emess->Add($arMessage))
@@ -671,7 +671,7 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y
 			$strMessage = $strMessCategoty;
 			if (!empty($arResult["FEEDBACK_TEXT"]))
 			{
-				$strMessage .= (!empty($arParams["FB_TEXT_NAME"]) ? $arParams["FB_TEXT_NAME"] : GetMessage("ALX_CP_EVENT_TEXT_MESSAGE")) . ":";
+				$strMessage .= (!empty($arParams["FB_TEXT_NAME"]) ? $arParams["FB_TEXT_NAME"] : GetMessage("ASSEMBLY_CP_EVENT_TEXT_MESSAGE")) . ":";
 				$strMessage .= "\n";
 				$strMessage .= htmlspecialcharsback($arResult["FEEDBACK_TEXT"]);
 				$strMessage .= "\n";
@@ -683,15 +683,15 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y
 
 			if ($arParams["SHOW_MESSAGE_LINK"] == "Y")
 			{
-				$strEditUrl = GetMessage("ALX_CP_IBLOCK_ELEMENT_EDIT",
+				$strEditUrl = GetMessage("ASSEMBLY_CP_IBLOCK_ELEMENT_EDIT",
 					Array("#ID#" => $ID, "#IBLOCK_TYPE#" => trim(htmlspecialcharsEx($arParams["IBLOCK_TYPE"])), "#LID#" => LANGUAGE_ID, "#IBLOCK_ID#" => intval($arParams["IBLOCK_ID"])));
-				$strMessLink = GetMessage("ALX_CP_EVENT_MESSAGE_LINK",
+				$strMessLink = GetMessage("ASSEMBLY_CP_EVENT_MESSAGE_LINK",
 					Array("#SERVER_NAME#" => $_SERVER["SERVER_NAME"], "#EDIT_URL#" => $strEditUrl));
 				$strMessage .= "\n\n" . $strMessLink;
 			}
 
-			if (!empty($_POST["type_question_name_" . $ALX]))
-				$strMessCategoty = "(" . $_POST["type_question_name_" . $ALX] . ")";
+			if (!empty($_POST["type_question_name_" . $ASSEMBLY]))
+				$strMessCategoty = "(" . $_POST["type_question_name_" . $ASSEMBLY] . ")";
 			$arEventSend = Array(
 				"SECTION_EMAIL_TO" => $emailTo,
 				"TEXT_MESSAGE" => $strMessage,
@@ -699,8 +699,8 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y
 				"CATEGORY" => $strMessCategoty
 			);
 
-			if ($arParams["USERMAIL_FROM"] == "Y" && check_email($_POST["FIELDS"]["EMAIL_" . $ALX]))
-				$arEventSend["EMAIL_FROM"] = $_POST["FIELDS"]["EMAIL_" . $ALX];
+			if ($arParams["USERMAIL_FROM"] == "Y" && check_email($_POST["FIELDS"]["EMAIL_" . $ASSEMBLY]))
+				$arEventSend["EMAIL_FROM"] = $_POST["FIELDS"]["EMAIL_" . $ASSEMBLY];
 			else
 				$arEventSend["EMAIL_FROM"] = COption::GetOptionString("main", "email_from");
 
@@ -724,7 +724,7 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y
 				}
 
 				// create EventType for user
-				$mail = trim(htmlspecialcharsEx($_POST["FIELDS"]["EMAIL_" . $ALX]));
+				$mail = trim(htmlspecialcharsEx($_POST["FIELDS"]["EMAIL_" . $ASSEMBLY]));
 
 				if ($arParams["SEND_MAIL"] == "Y" && !empty($mail))
 				{
@@ -736,7 +736,7 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y
 						$eventID = $et->Add(array(
 							"LID" => LANGUAGE_ID,
 							"EVENT_NAME" => $arParams["USER_EVENT"],
-							"NAME" => GetMessage("ALX_CP_SEND_MAIL"),
+							"NAME" => GetMessage("ASSEMBLY_CP_SEND_MAIL"),
 							"DESCRIPTION" => ""
 						));
 						$emess = new CEventMessage;
@@ -746,10 +746,10 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y
 							"EVENT_NAME" => $arParams["USER_EVENT"],
 							"EMAIL_FROM" => "#DEFAULT_EMAIL_FROM#",
 							"EMAIL_TO" => "#EMAIL#",
-							"SUBJECT" => GetMessage("ALX_CP_EVENT_MESSAGE_SUBJECT"),
+							"SUBJECT" => GetMessage("ASSEMBLY_CP_EVENT_MESSAGE_SUBJECT"),
 							"BODY_TYPE" => "text",
 							"BCC" => "#BCC#",
-							"MESSAGE" => GetMessage("ALX_SEND_USER_MESSAGE")
+							"MESSAGE" => GetMessage("ASSEMBLY_SEND_USER_MESSAGE")
 						);
 						$flagErr = false;
 
@@ -763,7 +763,7 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y
 					if ($flagErr == false)
 					{
 						$arEventSend = Array(
-							"TEXT_MESSAGE" => GetMessage("ALX_SEND_USER_MESSAGE_TEXT"),
+							"TEXT_MESSAGE" => GetMessage("ASSEMBLY_SEND_USER_MESSAGE_TEXT"),
 							"CATEGORY" => $strMessCategoty,
 							"EMAIL" => $mail
 						);
@@ -774,21 +774,21 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ALX] == 'Y
 							CEvent::SendImmediate($arParams["USER_EVENT"], SITE_ID, $arEventSend);
 					}
 				}
-				$_SESSION['alx_send_success'.$ALX] = 'Y';
+				$_SESSION['assembly_send_success'.$ASSEMBLY] = 'Y';
 			}
-			$arResult["success_" . $ALX] = "yes";
+			$arResult["success_" . $ASSEMBLY] = "yes";
 
 			// saving in cookies submit of form - if popup
-			if ($arParams['ALX_LOAD_PAGE'] == 'Y' && $arParams['ALX_LINK_POPUP'] == 'Y')
+			if ($arParams['ASSEMBLY_LOAD_PAGE'] == 'Y' && $arParams['ASSEMBLY_LINK_POPUP'] == 'Y')
 			{
-				$APPLICATION->set_cookie("COLLECTED_FDB_SEND_" . $ALX, "Y", time() + 2592000); // 60*60*24*30
+				$APPLICATION->set_cookie("COLLECTED_FDB_SEND_" . $ASSEMBLY, "Y", time() + 2592000); // 60*60*24*30
 			}
 		}
 	}
 }
 else
 {
-	unset($_SESSION['alx_send_success'.$ALX]);
+	unset($_SESSION['assembly_send_success'.$ASSEMBLY]);
 }
 
 $arResult["FIELDS"] = Array();
@@ -827,7 +827,7 @@ foreach($arProp as $prop)
 		continue;
 
 	$arField = Array(
-		"CODE"	=>	$prop["CODE"] ."_".$ALX,
+		"CODE"	=>	$prop["CODE"] ."_".$ASSEMBLY,
 		"NAME"	=>	$prop["NAME"],
 		"SORT"	=>	$prop["SORT"],
 		"TYPE"	=>	$prop["PROPERTY_TYPE"],
@@ -877,7 +877,7 @@ foreach($arProp as $prop)
 	if($prop["CODE"] == "CITY")
 		if(CModule::IncludeModule("collected.geoip"))
 		{
-			$arGeoIP = ALX_GeoIP::GetAddr();
+			$arGeoIP = ASSEMBLY_GeoIP::GetAddr();
 			$arField["DEFAULT_VALUE"] = $arGeoIP["city"];
 		}
 
@@ -1035,11 +1035,11 @@ if(!empty($arTSect))
 
 if($arParams["USE_CAPTCHA"] == "Y" && $arParams["CAPTCHA_TYPE"] == "recaptcha")
 {
-	$common_crm = COption::GetOptionString('collected.feedback', 'ALX_COMMON_CRM');
+	$common_crm = COption::GetOptionString('collected.feedback', 'ASSEMBLY_COMMON_CRM');
 	if($common_crm == "Y")
-		$arResult["SITE_KEY"] = COption::GetOptionString('collected.feedback', 'ALX_RECAPTCHA_SITE_KEY');
+		$arResult["SITE_KEY"] = COption::GetOptionString('collected.feedback', 'ASSEMBLY_RECAPTCHA_SITE_KEY');
 	else
-		$arResult["SITE_KEY"] = COption::GetOptionString('collected.feedback', 'ALX_RECAPTCHA_SITE_KEY_'.SITE_ID);
+		$arResult["SITE_KEY"] = COption::GetOptionString('collected.feedback', 'ASSEMBLY_RECAPTCHA_SITE_KEY_'.SITE_ID);
 }
 
 $this->IncludeComponentTemplate();
@@ -1050,10 +1050,10 @@ if(count($arResult["TYPE_QUESTION"]) >= 1 || array_walk_recursive($arResult["FIE
 	$APPLICATION->AddHeadScript($this->__path.'/templates/'.$this->arParams['COMPONENT_TEMPLATE'].'/dropdown/jquery.dropdown.js');
 }
 
-if($arParams['ALX_LINK_POPUP']=='Y' || isset($arResult["POST"])
+if($arParams['ASSEMBLY_LINK_POPUP']=='Y' || isset($arResult["POST"])
 	|| ($arParams["SECTION_FIELDS_ENABLE"] == "Y" && $_POST["REFRESH"] == "Y")
 )
 {
-	if($_SERVER["REQUEST_METHOD"]=="POST" && ($_POST["OPEN_POPUP"] == $ALX || $_POST["FEEDBACK_FORM_".$ALX]))
+	if($_SERVER["REQUEST_METHOD"]=="POST" && ($_POST["OPEN_POPUP"] == $ASSEMBLY || $_POST["FEEDBACK_FORM_".$ASSEMBLY]))
 		die();
 }

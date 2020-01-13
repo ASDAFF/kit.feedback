@@ -107,9 +107,9 @@ while($arr = $rsIBlock->Fetch())
 }
 
 if(is_array($arPropForNameEl))
-	$arProperty_nameEl = array_merge(Array("ALX_DATE" => GetMessage("CURRENT_DATE"), "ALX_TEXT" => GetMessage("TEXT_MESS")),$arPropForNameEl);
+	$arProperty_nameEl = array_merge(Array("ASSEMBLY_DATE" => GetMessage("CURRENT_DATE"), "ASSEMBLY_TEXT" => GetMessage("TEXT_MESS")),$arPropForNameEl);
 else
-	$arProperty_nameEl =Array("ALX_DATE" => GetMessage("CURRENT_DATE"), "ALX_TEXT" => GetMessage("TEXT_MESS"));
+	$arProperty_nameEl =Array("ASSEMBLY_DATE" => GetMessage("CURRENT_DATE"), "ASSEMBLY_TEXT" => GetMessage("TEXT_MESS"));
 
 
 $arComponentParameters = array(
@@ -166,7 +166,7 @@ $arComponentParameters = array(
 			"PARENT" => "BASE",
 			"NAME" => GetMessage("F_EVENT_TYPE"),
 			"TYPE" => "STRING",
-			"DEFAULT" => "ALX_FEEDBACK_FORM"
+			"DEFAULT" => "ASSEMBLY_FEEDBACK_FORM"
 		),
 		"PROPERTY_FIELDS" => array(
 			"PARENT" => "DATA_SOURCE",
@@ -205,7 +205,7 @@ $arComponentParameters = array(
 			"MULTIPLE" => "N",
 			"VALUES" => $arProperty_nameEl,
 			"ADDITIONAL_VALUES" => "N",
-			"DEFAULT" => "ALX_DATE",
+			"DEFAULT" => "ASSEMBLY_DATE",
 		),
 		"BBC_MAIL" => Array(
 			"PARENT" => "ADDITIONAL_SETTINGS",
@@ -274,16 +274,16 @@ $arComponentParameters = array(
 			"TYPE" => "CHECKBOX",
 			"DEFAULT" => "Y",
 		),*/
-		"ALX_LINK_POPUP" => Array(
+		"ASSEMBLY_LINK_POPUP" => Array(
 			"PARENT" => "POPUP",
-			"NAME" => GetMessage("ALX_CHECKBOX_NAME_LINK"),
+			"NAME" => GetMessage("ASSEMBLY_CHECKBOX_NAME_LINK"),
 			"TYPE" => "CHECKBOX",
 			"DEFAULT" => "N",
 			"REFRESH" => "Y",
 		),
 		"INPUT_APPEARENCE" => Array(
 			"PARENT" => "VISUAL",
-			"NAME" => GetMessage("ALX_INPUT_APPEARENCE"),
+			"NAME" => GetMessage("ASSEMBLY_INPUT_APPEARENCE"),
 			"TYPE" => "LIST",
 			"MULTIPLE" => "Y",
 			"VALUES" => Array(
@@ -421,7 +421,7 @@ if($arCurrentValues["SEND_MAIL"] == "Y")
 		"PARENT" => "ADDITIONAL_SETTINGS",
 		"NAME" => GetMessage("USER_EVENT"),
 		"TYPE" => "STRING",
-		"DEFAULT" => "ALX_FEEDBACK_FORM_SEND_MAIL",
+		"DEFAULT" => "ASSEMBLY_FEEDBACK_FORM_SEND_MAIL",
 	);
 }
 
@@ -436,38 +436,38 @@ if(isset($arCurrentValues["COLOR_THEME"]) && $arCurrentValues["COLOR_THEME"] == 
 	);
 }
 
-if($arCurrentValues["ALX_LINK_POPUP"] == "Y")
+if($arCurrentValues["ASSEMBLY_LINK_POPUP"] == "Y")
 {
 	$arComponentParameters["PARAMETERS"]["POPUP_ANIMATION"] = array(
 		"PARENT" => "VISUAL",
-		"NAME" => GetMessage("ALX_POPUP_ANIMATION"),
+		"NAME" => GetMessage("ASSEMBLY_POPUP_ANIMATION"),
 		"TYPE" => "LIST",
 		"VALUES" => Array(
-			GetMessage('ALX_POPUP_ANIMATION_DEF'),
-			GetMessage('ALX_POPUP_ANIMATION1'),
-			GetMessage('ALX_POPUP_ANIMATION2'),
-			GetMessage('ALX_POPUP_ANIMATION3'),
-			GetMessage('ALX_POPUP_ANIMATION4')
+			GetMessage('ASSEMBLY_POPUP_ANIMATION_DEF'),
+			GetMessage('ASSEMBLY_POPUP_ANIMATION1'),
+			GetMessage('ASSEMBLY_POPUP_ANIMATION2'),
+			GetMessage('ASSEMBLY_POPUP_ANIMATION3'),
+			GetMessage('ASSEMBLY_POPUP_ANIMATION4')
 		),
 		"DEFAULT" => "0"
 	);
-	$arComponentParameters["PARAMETERS"]["ALX_NAME_LINK"] = array(
+	$arComponentParameters["PARAMETERS"]["ASSEMBLY_NAME_LINK"] = array(
 		"PARENT" => "POPUP",
-		"NAME" => GetMessage("ALX_NAME_LINK"),
+		"NAME" => GetMessage("ASSEMBLY_NAME_LINK"),
 		"TYPE" => "STRING",
-		"DEFAULT" => GetMessage("ALX_NAME_LINK_DEFAULT"),
+		"DEFAULT" => GetMessage("ASSEMBLY_NAME_LINK_DEFAULT"),
 		"COLS" => 50,
 	);
-	$arComponentParameters["PARAMETERS"]["ALX_LOAD_PAGE"] = array(
+	$arComponentParameters["PARAMETERS"]["ASSEMBLY_LOAD_PAGE"] = array(
 		"PARENT" => "POPUP",
-		"NAME" => GetMessage("ALX_LOAD_PAGE"),
+		"NAME" => GetMessage("ASSEMBLY_LOAD_PAGE"),
 		"TYPE" => "CHECKBOX",
 		"DEFAULT" => "N",
 		"REFRESH" => "Y",
 	);
 	$arComponentParameters["PARAMETERS"]["WIDTH_FORM"]["DEFAULT"] = "100%";
 
-	if($arCurrentValues["ALX_LOAD_PAGE"] == "Y")
+	if($arCurrentValues["ASSEMBLY_LOAD_PAGE"] == "Y")
 	{
 		$arComponentParameters["PARAMETERS"]["POPUP_DELAY"] = array(
 			"PARENT" => "POPUP",

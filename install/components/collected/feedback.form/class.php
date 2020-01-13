@@ -69,9 +69,9 @@ class CCollectedFeedbackThemes extends CBitrixComponent
 		return ($arRgb[0] * 0.229 + $arRgb[1] *0.587 + $arRgb[2] * 0.114);
 	}
 
-	public function Generate($color = false, $theme = false, $scheme = false, $ALX, $tmplPath, $strStyle)
+	public function Generate($color = false, $theme = false, $scheme = false, $ASSEMBLY, $tmplPath, $strStyle)
 	{
-		$filename = $_SERVER['DOCUMENT_ROOT'].$tmplPath.'/themes/theme_'.md5($theme.'_'.$color.'_'.$scheme.'_'.$ALX).'.css';
+		$filename = $_SERVER['DOCUMENT_ROOT'].$tmplPath.'/themes/theme_'.md5($theme.'_'.$color.'_'.$scheme.'_'.$ASSEMBLY).'.css';
 		if(file_exists($filename))
 			return;
 
@@ -149,7 +149,7 @@ class CCollectedFeedbackThemes extends CBitrixComponent
 
 		$style = $strStyle;
 		$aReplace = array(
-			"#ID#" => $ALX,
+			"#ID#" => $ASSEMBLY,
 			"#NORMAL#" => $normal,
 			"#DARKER#" => $darker,
 			"#BRIGHT#" => $brighter,

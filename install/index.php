@@ -97,7 +97,7 @@ Class collected_feedback extends CModule
 		if(!CModule::IncludeModule("iblock"))
 			return;
 		//add type iblock
-		$res = CIBlockType::GetByID("alx_feedback");
+		$res = CIBlockType::GetByID("assembly_feedback");
 		if(!$v = $res->GetNext())
 		{
 			$arFields = Array(
@@ -259,10 +259,10 @@ Class collected_feedback extends CModule
 	function UnInstallEvents()
 	{
 		global $DB;
-		$DB->Query("DELETE FROM b_event_type WHERE EVENT_NAME in ('ALX_FEEDBACK_FORM')");
-		$DB->Query("DELETE FROM b_event_message WHERE EVENT_NAME in ('ALX_FEEDBACK_FORM')");
-		$DB->Query("DELETE FROM b_event_type WHERE EVENT_NAME in ('ALX_FEEDBACK_FORM_SEND_MAIL')");
-		$DB->Query("DELETE FROM b_event_message WHERE EVENT_NAME in ('ALX_FEEDBACK_FORM_SEND_MAIL')");
+		$DB->Query("DELETE FROM b_event_type WHERE EVENT_NAME in ('ASSEMBLY_FEEDBACK_FORM')");
+		$DB->Query("DELETE FROM b_event_message WHERE EVENT_NAME in ('ASSEMBLY_FEEDBACK_FORM')");
+		$DB->Query("DELETE FROM b_event_type WHERE EVENT_NAME in ('ASSEMBLY_FEEDBACK_FORM_SEND_MAIL')");
+		$DB->Query("DELETE FROM b_event_message WHERE EVENT_NAME in ('ASSEMBLY_FEEDBACK_FORM_SEND_MAIL')");
 	}
 }
 ?>

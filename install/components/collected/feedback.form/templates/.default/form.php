@@ -8,21 +8,21 @@
 			}
 		});
 	</script>
-	<form id="f_feedback_<?=$ALX?>" name="f_feedback_<?=$ALX?>" action="<?=POST_FORM_ACTION_URI?>" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="FEEDBACK_FORM_<?=$ALX?>" value="Y" />
+	<form id="f_feedback_<?=$ASSEMBLY?>" name="f_feedback_<?=$ASSEMBLY?>" action="<?=POST_FORM_ACTION_URI?>" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="FEEDBACK_FORM_<?=$ASSEMBLY?>" value="Y" />
 <?		if($arParams["ADD_HREF_LINK"] != "N"):?>
-			<input type="hidden" name="HREF_LINK_<?=$ALX?>" value="<?=POST_FORM_ACTION_URI?>" />
+			<input type="hidden" name="HREF_LINK_<?=$ASSEMBLY?>" value="<?=POST_FORM_ACTION_URI?>" />
 <?		endif?>
 <?			if(count($arResult["TYPE_QUESTION"]) >= 1):?>
 <?					/* TYPE_QUESTION */?>
 					<div class="collect_item_pole is_filled required">
 						<div class="collect_name"><?=$arParams["CATEGORY_SELECT_NAME"]?></div>
 						<div class="collect_inputtext_bg">
-							<input type="hidden" id="type_question_name_<?=$ALX?>" name="type_question_name_<?=$ALX?>" value="<?=$arResult["TYPE_QUESTION"][0]["NAME"]?>">
-							<select id="type_question_<?=$ALX?>" class="collect_select" name="type_question_<?=$ALX?>" onchange="ALX_SetNameQuestion(this,'<?=$ALX?>');">
-								<option value=""><?if(!in_array("FLOATING_LABELS", $arParams['INPUT_APPEARENCE'])): echo GetMessage("ALX_CATEGORY_NO"); endif;?></option>
+							<input type="hidden" id="type_question_name_<?=$ASSEMBLY?>" name="type_question_name_<?=$ASSEMBLY?>" value="<?=$arResult["TYPE_QUESTION"][0]["NAME"]?>">
+							<select id="type_question_<?=$ASSEMBLY?>" class="collect_select" name="type_question_<?=$ASSEMBLY?>" onchange="ASSEMBLY_SetNameQuestion(this,'<?=$ASSEMBLY?>');">
+								<option value=""><?if(!in_array("FLOATING_LABELS", $arParams['INPUT_APPEARENCE'])): echo GetMessage("ASSEMBLY_CATEGORY_NO"); endif;?></option>
 <?								foreach($arResult["TYPE_QUESTION"] as $arField):?>
-<?									if(trim(htmlspecialcharsEx($_POST["type_question_".$ALX])) == $arField["ID"]):?>
+<?									if(trim(htmlspecialcharsEx($_POST["type_question_".$ASSEMBLY])) == $arField["ID"]):?>
 								<option value="<?=$arField["ID"]?>" selected><?=$arField["NAME"]?></option>
 <?									else:?>
 								<option value="<?=$arField["ID"]?>"><?=$arField["NAME"]?></option>
@@ -48,21 +48,21 @@
 				$strLen = mb_strlen($arResult["FEEDBACK_TEXT"], 'utf-8');
 				$strFBtext = '<div class="collect_item_pole';
 				$strFBtext .= ($strLen > 0) ? ' is_filled' : '';
-				$strFBtext .= in_array("FEEDBACK_TEXT_".$ALX, $arParams["PROPERTY_FIELDS_REQUIRED"]) ? ' required':'';
+				$strFBtext .= in_array("FEEDBACK_TEXT_".$ASSEMBLY, $arParams["PROPERTY_FIELDS_REQUIRED"]) ? ' required':'';
 				$strFBtext .= '">';
 
 				$strFBtext .= '<div class="collect_name">';
 				if(!empty($arParams["FB_TEXT_NAME"]))
 					$strFBtext .= $arParams["FB_TEXT_NAME"];
 				else
-					$strFBtext .= GetMessage("ALX_TP_MESSAGE_TEXTMESS");
-				if(in_array("FEEDBACK_TEXT_".$ALX, $arParams["PROPERTY_FIELDS_REQUIRED"]))
+					$strFBtext .= GetMessage("ASSEMBLY_TP_MESSAGE_TEXTMESS");
+				if(in_array("FEEDBACK_TEXT_".$ASSEMBLY, $arParams["PROPERTY_FIELDS_REQUIRED"]))
 				{
 					$strFBtext .= ' <span class="collect_required_text">*</span>';
 				}
 				$strFBtext .= '</div>
 					<div class="collect_inputtext_bg" id="error_EMPTY_TEXT">
-						<textarea class="collect_textarea" cols="10" rows="10" id="EMPTY_TEXT'.$ALX.'" name="FEEDBACK_TEXT_'.$ALX.'">'.$arResult["FEEDBACK_TEXT"].'</textarea>
+						<textarea class="collect_textarea" cols="10" rows="10" id="EMPTY_TEXT'.$ASSEMBLY.'" name="FEEDBACK_TEXT_'.$ASSEMBLY.'">'.$arResult["FEEDBACK_TEXT"].'</textarea>
 					</div>
 					<div class="collect_error_text">'.GetMessage("COLLECT_ERROR_TEXT").'</div>
 				</div>';
@@ -78,7 +78,7 @@
 					$fieldClass .= ' is_filled';
 				if ($arField["REQUIRED"]=='Y')
 					$fieldClass .= ' required';
-				if ($arField["CODE"] == "EMAIL_".$ALX)
+				if ($arField["CODE"] == "EMAIL_".$ASSEMBLY)
 					$fieldClass .= ' is_email';
 				if ($arField['LIST_TYPE'] == 'C')
 					$nameClass .= ' static_name';
@@ -98,7 +98,7 @@
 <?							else:?>
 								<select class="collect_select" name="FIELDS[<?=$arField["CODE"]?>]">
 <?							endif;?>
-									<option value=""><?if(!in_array("FLOATING_LABELS", $arParams['INPUT_APPEARENCE'])): echo GetMessage("ALX_NOT_SET"); endif;?></option>
+									<option value=""><?if(!in_array("FLOATING_LABELS", $arParams['INPUT_APPEARENCE'])): echo GetMessage("ASSEMBLY_NOT_SET"); endif;?></option>
 <?							foreach($arField["ENUM"] as $v):?>
 <?								if(!isset($_POST["FIELDS"][$arField["CODE"]]) && !isset($arResult["FORM_ERRORS"]["EMPTY_FIELD"][$arField["CODE"]])):?>
 									<option value="<?=$v["ID"]?>"<?if($v['DEF'] == 'Y') echo ' selected="selected"';?>><?=$v["VALUE"]?></option>
@@ -191,9 +191,9 @@
 								define("ADMIN_THEME_ID", CAdminTheme::GetCurrentTheme());
 								echo CAdminPage::ShowScript();
 								if(class_exists("CAdminCalendar"))
-									echo CAdminCalendar::Calendar("FIELDS[".$arField["CODE"]."]", "f_feedback_".$ALX, "", ($arField["USER_TYPE"] == "DateTime"));
+									echo CAdminCalendar::Calendar("FIELDS[".$arField["CODE"]."]", "f_feedback_".$ASSEMBLY, "", ($arField["USER_TYPE"] == "DateTime"));
 								else
-									echo Calendar("FIELDS[".$arField["CODE"]."]", "f_feedback_".$ALX);
+									echo Calendar("FIELDS[".$arField["CODE"]."]", "f_feedback_".$ASSEMBLY);
 ?>				
 							</div>
 <?							if ($arField['REQUIRED'] == 'Y'):?>
@@ -238,7 +238,7 @@
 ?>
 						<select class="<?if($arField["PROPERTY"]["MULTIPLE"]!="Y"):?>collect_select<?else:?>collect_inputtext collect_select_sect<?endif;?>" name="FIELDS[<?=$arField["CODE"]?>][]"<? echo (!empty($arField["PROPERTY"]["MULTIPLE_CNT"]) && $arField["PROPERTY"]["MULTIPLE"]=="Y" ? ' size="'.$arField["PROPERTY"]["MULTIPLE_CNT"].'"' : "");?><?
 							echo ($arField["PROPERTY"]["MULTIPLE"] == "Y" ? " multiple=\"multiple\"" : "");?>>
-							<option value=""<?if(isset($_POST["FIELDS"][$arField["CODE"]]) && in_array("", $_POST["FIELDS"][$arField["CODE"]])) echo " selected"?>><?if(!in_array("FLOATING_LABELS", $arParams['INPUT_APPEARENCE'])): echo GetMessage("ALX_NOT_SET"); endif;?></option>
+							<option value=""<?if(isset($_POST["FIELDS"][$arField["CODE"]]) && in_array("", $_POST["FIELDS"][$arField["CODE"]])) echo " selected"?>><?if(!in_array("FLOATING_LABELS", $arParams['INPUT_APPEARENCE'])): echo GetMessage("ASSEMBLY_NOT_SET"); endif;?></option>
 <?
 							foreach($arField["LINKED_SECTIONS"] as $arEl):?>
 							<option value="<?echo $arEl["ID"]?>"<?
@@ -260,14 +260,14 @@
 <?						elseif(!empty($arField["AUTOCOMPLETE_VALUE"])):
 							$readonly = "";
 							if($arParams["PROPS_AUTOCOMPLETE_VETO"]=="Y" && $USER->IsAuthorized())
-								if($arField["CODE"] == "FIO_".$ALX || $arField["CODE"] == "EMAIL_".$ALX || $arField["CODE"] == "PHONE_".$ALX)
+								if($arField["CODE"] == "FIO_".$ASSEMBLY || $arField["CODE"] == "EMAIL_".$ASSEMBLY || $arField["CODE"] == "PHONE_".$ASSEMBLY)
 									$readonly = 'readonly = "readonly" ';?>
 							<input type="text" size="40" id="<?=$arField["CODE"]?>1" name="FIELDS[<?=$arField["CODE"]?>]" <?=$readonly?>value="<?=trim(htmlspecialcharsEx($arField["AUTOCOMPLETE_VALUE"]))?>" class="collect_inputtext" />
 <?						else:?>
 							<input type="text" size="40" id="<?=$arField["CODE"]?>1" name="FIELDS[<?=$arField["CODE"]?>]" value="<?=$arField["DEFAULT_VALUE"]?>" class="collect_inputtext" onblur="if(this.value==''){this.value='<?=$arField["DEFAULT_VALUE"]?>'}" onclick="if(this.value=='<?=$arField["DEFAULT_VALUE"]?>'){this.value=''}" />
 <?						endif;?>
 
-<?						if ($arField["CODE"] == "EMAIL_".$ALX):?>
+<?						if ($arField["CODE"] == "EMAIL_".$ASSEMBLY):?>
 							<div class="collect_error_text"><?=GetMessage("COLLECT_ERROR_TEXT_EMAIL")?></div>
 <?						elseif ($arField['REQUIRED'] == 'Y'):?>
 							<div class="collect_error_text"><?=GetMessage('COLLECT_ERROR_TEXT')?></div>
@@ -291,7 +291,7 @@
 							</span>
 						</div>
 <?						if ($arField['REQUIRED'] == 'Y'):?>
-<?							if ($arField["CODE"] == "FILE_".$ALX):?>
+<?							if ($arField["CODE"] == "FILE_".$ASSEMBLY):?>
 								<div class="collect_error_text"><?=GetMessage("COLLECT_ERROR_TEXT")?></div>
 <?							endif?>
 <?						endif?>
@@ -318,46 +318,46 @@
 					<div class="collect_item_pole item_pole__captcha required">
 
 <?						if($fVerComposite) $frame = $this->createFrame()->begin('loading... <img src="/bitrix/themes/.default/start_menu/main/loading.gif">');?>
-<?						$capCode = $GLOBALS["APPLICATION"]->CaptchaGetCode();$_SESSION['ALX_CAPTHA_CODE']=$capCode;?>
-						<input type="hidden" id="alx_fb_captchaSid_<?=$ALX?>" name="captcha_sid" value="<?=htmlspecialcharsEx($capCode)?>">
+<?						$capCode = $GLOBALS["APPLICATION"]->CaptchaGetCode();$_SESSION['ASSEMBLY_CAPTHA_CODE']=$capCode;?>
+						<input type="hidden" id="assembly_fb_captchaSid_<?=$ASSEMBLY?>" name="captcha_sid" value="<?=htmlspecialcharsEx($capCode)?>">
 						<div class="collect_pole_captcha">
-							<img class="image" id="alx_cm_CAPTCHA_<?=$ALX?>" src="/bitrix/tools/captcha.php?captcha_sid=<?=htmlspecialcharsEx($capCode)?>" width="180" height="40">
+							<img class="image" id="assembly_cm_CAPTCHA_<?=$ASSEMBLY?>" src="/bitrix/tools/captcha.php?captcha_sid=<?=htmlspecialcharsEx($capCode)?>" width="180" height="40">
 <?							if($arParams["CHANGE_CAPTCHA"] == "Y"):?>
-								<span class="collect_captcha_reload" onclick="ALX_ChangeCaptcha('<?=$ALX?>');return false;"></span>
+								<span class="collect_captcha_reload" onclick="ASSEMBLY_ChangeCaptcha('<?=$ASSEMBLY?>');return false;"></span>
 <?							else:?>
-								<span class="collect_captcha_reload" onclick="capCode='<?=htmlspecialcharsEx($capCode)?>';ALX_ReloadCaptcha(capCode,'<?=$ALX?>');return false;"></span>
+								<span class="collect_captcha_reload" onclick="capCode='<?=htmlspecialcharsEx($capCode)?>';ASSEMBLY_ReloadCaptcha(capCode,'<?=$ASSEMBLY?>');return false;"></span>
 <?							endif;?>
 						</div>
 <?						if($fVerComposite) $frame->end();?>
-						<div class="collect_name"><?=GetMessage("ALX_TP_MESSAGE_INPUTF")?> <span class="collect_required_text">*</span></div>
-						<div class="collect_inputtext_bg"><input type="text" class="collect_inputtext" id="captcha_word_<?=$ALX?>" name="captcha_word" size="30" maxlength="50" value=""></div>
-						<div class="collect_error_text"><?=GetMessage("ALX_CP_WRONG_CAPTCHA")?></div>
+						<div class="collect_name"><?=GetMessage("ASSEMBLY_TP_MESSAGE_INPUTF")?> <span class="collect_required_text">*</span></div>
+						<div class="collect_inputtext_bg"><input type="text" class="collect_inputtext" id="captcha_word_<?=$ASSEMBLY?>" name="captcha_word" size="30" maxlength="50" value=""></div>
+						<div class="collect_error_text"><?=GetMessage("ASSEMBLY_CP_WRONG_CAPTCHA")?></div>
 					</div>
 <?				else:?>
 <?					if (isset($arResult["SITE_KEY"])):?>
 						<div class="collect_item_pole required is_filled">
-							<div class="collect_name"><?=GetMessage("ALX_TP_MESSAGE_RECAPTCHA")?><span class="collect_required_text">*</span></div>
+							<div class="collect_name"><?=GetMessage("ASSEMBLY_TP_MESSAGE_RECAPTCHA")?><span class="collect_required_text">*</span></div>
 
 <?					if($fVerComposite) $frame2 = $this->createFrame()->begin('loading... <img src="/bitrix/themes/.default/start_menu/main/loading.gif">');?>
 							<div class="collect_pole_captcha">
-								<div class="g-recaptcha" id="html_element_recaptcha_<?=$ALX?>" onload="CollectedFeedbackOnload_<?=$ALX?>()" data-sitekey="<?=$arResult["SITE_KEY"]?>"></div>
+								<div class="g-recaptcha" id="html_element_recaptcha_<?=$ASSEMBLY?>" onload="CollectedFeedbackOnload_<?=$ASSEMBLY?>()" data-sitekey="<?=$arResult["SITE_KEY"]?>"></div>
 								<span class="collect_captcha_reload" onclick="grecaptcha.reset();return false;"></span>
 							</div>
 							
 							<script type="text/javascript">
-							var CollectedFeedbackOnload_<?=$ALX?> = function(){
-								grecaptcha.render('html_element_recaptcha_<?=$ALX?>',{'sitekey':'<?=$arResult["SITE_KEY"];?>',
+							var CollectedFeedbackOnload_<?=$ASSEMBLY?> = function(){
+								grecaptcha.render('html_element_recaptcha_<?=$ASSEMBLY?>',{'sitekey':'<?=$arResult["SITE_KEY"];?>',
 									'theme':'<?=$arParams["RECAPTCHA_THEME"];?>','type':'<?=$arParams["RECAPTCHA_TYPE"];?>'});
 							};
-<?							if($arParams['ALX_LINK_POPUP']=='Y'):?>
-								$.getScript('https://www.google.com/recaptcha/api.js?onload=CollectedFeedbackOnload_<?=$ALX?>&render=explicit&hl=<?=LANGUAGE_ID?>')
+<?							if($arParams['ASSEMBLY_LINK_POPUP']=='Y'):?>
+								$.getScript('https://www.google.com/recaptcha/api.js?onload=CollectedFeedbackOnload_<?=$ASSEMBLY?>&render=explicit&hl=<?=LANGUAGE_ID?>')
 								  .fail(function( jqxhr, settings, exception ) {
 									console.log('Error loading google :)')
 								});								
 <?							endif?>		
 							</script>
 				
-							<div class="collect_error_text"><?=GetMessage("ALX_CP_WRONG_RECAPTCHA_MIR")?></div>
+							<div class="collect_error_text"><?=GetMessage("ASSEMBLY_CP_WRONG_RECAPTCHA_MIR")?></div>
 <?					if($fVerComposite) $frame2->end();?>
 						</div>
 <?					endif;?>
@@ -370,16 +370,16 @@
 				if(!isset($_POST["FIELDS"][$arField["CODE"]]) && !isset($arResult["FORM_ERRORS"]["EMPTY_FIELD"][$arField["CODE"]])):?>
 				<div class="collect_item_pole required" id="collect_agreement">
 					<div class="collect_checkbox<?=$cAddClass?>">
-						<label for="alx_fb_agreement<?=$ALX?>" style="margin-left: 0;">
-							<input id="alx_fb_agreement<?=$ALX?>" type="checkbox" name="alx_fb_agreement" value="yes" />
+						<label for="assembly_fb_agreement<?=$ASSEMBLY?>" style="margin-left: 0;">
+							<input id="assembly_fb_agreement<?=$ASSEMBLY?>" type="checkbox" name="assembly_fb_agreement" value="yes" />
 							<span class="collect_checkbox_box">
 								<span class="collect_checkbox_check"></span>
 							</span><?=GetMessage("COLLECT_AGREEMENT")?></label><br />
 					</div>
 	<?				else:?>
 					<div class="collect_checkbox<?=$cAddClass?>">
-						<label for="alx_fb_agreement<?=$ALX?>">
-							<input id="alx_fb_agreement<?=$ALX?>" type="checkbox" name="alx_fb_agreement" value="yes" />
+						<label for="assembly_fb_agreement<?=$ASSEMBLY?>">
+							<input id="assembly_fb_agreement<?=$ASSEMBLY?>" type="checkbox" name="assembly_fb_agreement" value="yes" />
 							<span class="collect_checkbox_box">
 								<span class="collect_checkbox_check"></span>
 							</span><?=GetMessage("COLLECT_AGREEMENT")?></label><br />
@@ -399,10 +399,10 @@
           "ID" => $arParams["USER_CONSENT_ID"],
           "IS_CHECKED" => $arParams["USER_CONSENT_IS_CHECKED"],
           "AUTO_SAVE" => "Y",
-		  "INPUT_NAME" => "alx_fb_agreement",
+		  "INPUT_NAME" => "assembly_fb_agreement",
           "IS_LOADED" => $arParams["USER_CONSENT_IS_LOADED"],
           "REPLACE" => array(
-           'button_caption' => GetMessage('ALX_TP_MESSAGE_SUBMIT'),
+           'button_caption' => GetMessage('ASSEMBLY_TP_MESSAGE_SUBMIT'),
            'fields' => $arrFields_userconsent,
 		   'INPUT_LABEL' =>$arParams["USER_CONSENT_INPUT_LABEL"],
 			),
@@ -429,7 +429,7 @@
     <?endif;?>
 <?		echo bitrix_sessid_post()?>
 		<div class="collect_submit_block">
-			<input type="submit" class="fb_close collect_btn" id="fb_close_<?=$ALX?>" name="SEND_FORM" value="<?=GetMessage('ALX_TP_MESSAGE_SUBMIT')?>" />
+			<input type="submit" class="fb_close collect_btn" id="fb_close_<?=$ASSEMBLY?>" name="SEND_FORM" value="<?=GetMessage('ASSEMBLY_TP_MESSAGE_SUBMIT')?>" />
 		</div>
 	</form>
 	

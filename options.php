@@ -19,11 +19,11 @@ function ShowParamsHTMLByArray($module_id, $arParams)
 
 $arAllOptions = array(
 	'enabled' => Array(
-		Array('ALX_COMMON_CRM', GetMessage('ALX_COMMON_CRM'), 'Y', array('checkbox'))
+		Array('ASSEMBLY_COMMON_CRM', GetMessage('ASSEMBLY_COMMON_CRM'), 'Y', array('checkbox'))
 	),
 	'reCAPTCHA' => Array(
-		Array('ALX_RECAPTCHA_SITE_KEY', GetMessage('ALX_FEEDBACK_SITE_KEY'), '', array('text', 50)),
-		Array('ALX_RECAPTCHA_SECRET_KEY', GetMessage('ALX_FEEDBACK_SECRET_KEY'), '', array('text', 50)),
+		Array('ASSEMBLY_RECAPTCHA_SITE_KEY', GetMessage('ASSEMBLY_FEEDBACK_SITE_KEY'), '', array('text', 50)),
+		Array('ASSEMBLY_RECAPTCHA_SECRET_KEY', GetMessage('ASSEMBLY_FEEDBACK_SECRET_KEY'), '', array('text', 50)),
 	),
 );
 $aTabs = array(
@@ -35,8 +35,8 @@ $dbSites = CSite::GetList($by="sort", $order="desc", Array());
 while($arSite = $dbSites->GetNext())
 {
 	$arAllOptions[$arSite['LID']]['reCAPTCHA'] = Array(
-		Array('ALX_RECAPTCHA_SITE_KEY'.'_'.$arSite['LID'], GetMessage('ALX_FEEDBACK_SITE_KEY'), '', array('text', 50)),
-		Array('ALX_RECAPTCHA_SECRET_KEY'.'_'.$arSite['LID'], GetMessage('ALX_FEEDBACK_SECRET_KEY'), '', array('text', 50)),
+		Array('ASSEMBLY_RECAPTCHA_SITE_KEY'.'_'.$arSite['LID'], GetMessage('ASSEMBLY_FEEDBACK_SITE_KEY'), '', array('text', 50)),
+		Array('ASSEMBLY_RECAPTCHA_SECRET_KEY'.'_'.$arSite['LID'], GetMessage('ASSEMBLY_FEEDBACK_SECRET_KEY'), '', array('text', 50)),
 	);
 }
 
@@ -48,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD']=='GET' && strlen($RestoreDefaults)>0 && check_bit
 
 $tabControl = new CAdminTabControl('tabControl', $aTabs);
 
-$siteK = COption::GetOptionString('collected.feedback', 'ALX_RECAPTCHA_SITE_KEY', '');
-$secretK = COption::GetOptionString('collected.feedback', 'ALX_RECAPTCHA_SECRET_KEY', '');
+$siteK = COption::GetOptionString('collected.feedback', 'ASSEMBLY_RECAPTCHA_SITE_KEY', '');
+$secretK = COption::GetOptionString('collected.feedback', 'ASSEMBLY_RECAPTCHA_SECRET_KEY', '');
 
 //Save options
 if($_POST["Update"] && strlen($Update)>0 && check_bitrix_sessid())
@@ -72,9 +72,9 @@ if($_POST["Update"] && strlen($Update)>0 && check_bitrix_sessid())
 		}
 	}
 
-	if($_POST['ALX_COMMON_CRM']!='Y')
+	if($_POST['ASSEMBLY_COMMON_CRM']!='Y')
 	{
-		COption::SetOptionString("collected.feedback", "ALX_COMMON_CRM",'N');
+		COption::SetOptionString("collected.feedback", "ASSEMBLY_COMMON_CRM",'N');
 	}
 }
 ?>
@@ -101,7 +101,7 @@ CJSCore::Init(array("jquery"));
 		</td>
 	</tr>
 	<?
-	$all = COption::GetOptionString('collected.feedback', 'ALX_COMMON_CRM', 'Y');
+	$all = COption::GetOptionString('collected.feedback', 'ASSEMBLY_COMMON_CRM', 'Y');
 	if(isset($_REQUEST["msite"]))
 	{
 		$all = $_REQUEST["msite"];
@@ -109,24 +109,24 @@ CJSCore::Init(array("jquery"));
 
 	?>
 	<tr>
-		<td valign='top' width='50%' class='field-name'><label for='ALX_COMMON_CRM'><?=GetMessage('ALX_COMMON_CRM')?><?=$all == 'Y' ? GetMessage('ALX_COMMON_CRM_AFTER_UNCHECK') : GetMessage('ALX_COMMON_CRM_AFTER_CHECK')?></label></td>
+		<td valign='top' width='50%' class='field-name'><label for='ASSEMBLY_COMMON_CRM'><?=GetMessage('ASSEMBLY_COMMON_CRM')?><?=$all == 'Y' ? GetMessage('ASSEMBLY_COMMON_CRM_AFTER_UNCHECK') : GetMessage('ASSEMBLY_COMMON_CRM_AFTER_CHECK')?></label></td>
 		<td valign='middle' width='50%'>
-			<input type='checkbox' id='ALX_COMMON_CRM' name='ALX_COMMON_CRM' value='<?=$all?>' <?=$all == 'Y' ? ' checked' : ''?> onChange = 'collected_func()'>
+			<input type='checkbox' id='ASSEMBLY_COMMON_CRM' name='ASSEMBLY_COMMON_CRM' value='<?=$all?>' <?=$all == 'Y' ? ' checked' : ''?> onChange = 'collected_func()'>
 		</td>
 	</tr>
 	<?if ($all != 'N'):?>
 		<tr class='heading'>
-			<td colspan='2' style="font-size:unset; height:10px; background-color:#dbebe7"><?=GetMessage('ALX_RECAPTCHA_SUB')?></td>
+			<td colspan='2' style="font-size:unset; height:10px; background-color:#dbebe7"><?=GetMessage('ASSEMBLY_RECAPTCHA_SUB')?></td>
 		</tr>
 		<?ShowParamsHTMLByArray($module_id, $arAllOptions['reCAPTCHA']);?>
 	<?else:?>
 		<?$dbSites = CSite::GetList($by="sort", $order="desc", Array());?>
 		<?while($arSite = $dbSites->GetNext()):?>
 			<tr class='heading'>
-				<td colspan='2' style="font-size:larger;"><?=GetMessage('ALX_FEEDBACK_FOR_SITE').$arSite['LID']?></td>
+				<td colspan='2' style="font-size:larger;"><?=GetMessage('ASSEMBLY_FEEDBACK_FOR_SITE').$arSite['LID']?></td>
 			</tr>
 			<tr class='heading'>
-				<td colspan='2' style="font-size:unset; height:10px; background-color:#dbebe7"><?=GetMessage('ALX_RECAPTCHA_SUB')?></td>
+				<td colspan='2' style="font-size:unset; height:10px; background-color:#dbebe7"><?=GetMessage('ASSEMBLY_RECAPTCHA_SUB')?></td>
 			</tr>
 			<?ShowParamsHTMLByArray($module_id, $arAllOptions[$arSite['LID']]['reCAPTCHA']);?>
 		<?endwhile?>
@@ -157,20 +157,20 @@ CJSCore::Init(array("jquery"));
 </style>
 <script language="JavaScript">
 $(function(){
-	var alx_obtn = $('#collected_description_open_btn'),
-	alx_cbtn = $('#collected_description_close_btn'),
+	var assembly_obtn = $('#collected_description_open_btn'),
+	assembly_cbtn = $('#collected_description_close_btn'),
 	full = $('#collected_description_full');
 
-	alx_obtn.click(function(){
+	assembly_obtn.click(function(){
 		full.show(175);
 		$(this).hide();
-		alx_cbtn.show();
+		assembly_cbtn.show();
 	});
 
-	alx_cbtn.click(function(){
+	assembly_cbtn.click(function(){
 		full.hide(175);
 		$(this).hide();
-		alx_obtn.show();
+		assembly_obtn.show();
 	});
 });
 </script>
@@ -190,12 +190,12 @@ function RestoreDefaults()
 <script type="text/javascript" >
 function collected_func()
 {
-	var mst = document.getElementById('ALX_COMMON_CRM').checked ? 'Y' : 'N';
+	var mst = document.getElementById('ASSEMBLY_COMMON_CRM').checked ? 'Y' : 'N';
 
 	if(confirm('<?=AddSlashes(GetMessage('ON_CHANGE_COMMON_SETTS_WARNING'))?>')){
-		document.getElementById('ALX_COMMON_CRM').value = mst;
+		document.getElementById('ASSEMBLY_COMMON_CRM').value = mst;
 		window.location = '<?=$APPLICATION->GetCurPage()?>?msite='+mst+'&lang=<?=LANG?>&mid=<?=urlencode($mid)?>&<?=bitrix_sessid_get()?>';
 	} else
-		document.getElementById('ALX_COMMON_CRM').checked = !document.getElementById('ALX_COMMON_CRM').checked;
+		document.getElementById('ASSEMBLY_COMMON_CRM').checked = !document.getElementById('ASSEMBLY_COMMON_CRM').checked;
 }
 </script>
