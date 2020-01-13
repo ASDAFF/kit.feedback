@@ -86,20 +86,6 @@ CJSCore::Init(array("jquery"));
 <?$tabControl->Begin();?>
 
 <?$tabControl->BeginNextTab();?>
-	<tr>
-		<td colspan="2">
-			<div style='background-color: #fff; padding: 0; border-top: 1px solid #8E8E8E; border-bottom: 1px solid #8E8E8E; margin-bottom: 15px;'>
-				<div style='background-color: #8E8E8E; height: 30px; padding: 7px; border: 1px solid #fff'>
-					<a href='http://www.is-market.ru?param=cl' target='_blank'>
-						<img src='/bitrix/images/collected.feedback/is-market.gif' style='float: left; margin-right: 15px;' border='0' />
-					</a>
-					<div style='margin: 13px 0px 0px 0px'>
-						<a href='http://www.is-market.ru?param=cl' target='_blank' style='color: #fff; font-size: 10px; text-decoration: none'><?=GetMessage('COLLECTED_IS')?></a>
-					</div>
-				</div>
-			</div>
-		</td>
-	</tr>
 	<?
 	$all = COption::GetOptionString('collected.feedback', 'ASSEMBLY_COMMON_CRM', 'Y');
 	if(isset($_REQUEST["msite"]))

@@ -8,16 +8,6 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 if(!CModule::IncludeModule("iblock"))
 	return;
 
-$bNewVers = ((defined("SM_VERSION") && version_compare(SM_VERSION, "15.0.7") >= 0) ? true : false);
-if($_REQUEST['bxsender'] != 'fileman_html_editor' && (!$bNewVers || $_REQUEST["edit_file"] == "template")):?>
-<div style="background-color:#fff;padding:0;border-top:1px solid #8E8E8E;border-bottom:1px solid #8E8E8E;margin-bottom:15px;"><div style="background-color:#8E8E8E;height:30px;padding:7px;border:1px solid #fff">
-	<a href="http://www.is-market.ru?param=cl" target="_blank"><img src="/bitrix/components/collected/feedback.form/images/is-market.gif" style="float:left;margin-right:15px;" border="0" /></a>
-	<div style="margin:13px 0px 0px 0px">
-		<a href="http://www.is-market.ru?param=cl" target="_blank" style="color:#fff;font-size:10px;text-decoration:none"><?=GetMessage("COLLECTED_IS")?></a>
-	</div>
-</div></div>
-<?endif;
-
 $rsIBlockType = CIBlockType::GetList(array("sort"=>"asc"), array("ACTIVE"=>"Y"));
 while($arr=$rsIBlockType->Fetch())
 {
