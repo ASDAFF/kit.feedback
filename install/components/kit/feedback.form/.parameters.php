@@ -19,7 +19,7 @@ $rsIBlock = CIBlock::GetList(Array("sort" => "asc"), Array("TYPE" => $arCurrentV
 while($arr=$rsIBlock->Fetch())
 	$arIBlock[$arr["ID"]] = "[".$arr["ID"]."] ".$arr["NAME"];
 
-$rsIBlock = CIBlock::GetList(Array(), Array("CODE" => "collected_feedback"));
+$rsIBlock = CIBlock::GetList(Array(), Array("CODE" => "kit_feedback"));
 if($arr=$rsIBlock->Fetch())
 	$defaultIBid = $arr["ID"];
 
@@ -135,7 +135,7 @@ $arComponentParameters = array(
 			"TYPE" => "LIST",
 			"VALUES" => $arIBlockType,
 			"REFRESH" => "Y",
-			"DEFAULT" => "collected_feedback",
+			"DEFAULT" => "kit_feedback",
 		),
 		"IBLOCK_ID" => array(
 			"PARENT" => "BASE",
@@ -606,5 +606,5 @@ foreach($arSectionIB as $k => $v)
 	$arComponentParameters["PARAMETERS"][$k] = $v;
 }
 
-BXClearCache(true, "/collected/feedback");
+BXClearCache(true, "/kit/feedback");
 ?>

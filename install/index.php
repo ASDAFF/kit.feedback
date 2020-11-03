@@ -10,9 +10,9 @@ $strPath2Lang = substr($strPath2Lang, 0, strlen($strPath2Lang)-18);
 @include(GetLangFileName($strPath2Lang."/lang/", "/install/index.php"));
 IncludeModuleLangFile($strPath2Lang."/install/index.php");
 
-Class collected_feedback extends CModule
+Class kit_feedback extends CModule
 {
-	var $MODULE_ID = "collected.feedback";
+	var $MODULE_ID = "kit.feedback";
 	var $MODULE_VERSION;
 	var $MODULE_VERSION_DATE;
 	var $MODULE_NAME;
@@ -20,7 +20,7 @@ Class collected_feedback extends CModule
 	var $MODULE_CSS;
 	var $MODULE_GROUP_RIGHTS = "Y";
 
-	function collected_feedback()
+	function kit_feedback()
 	{
 		$arModuleVersion = array();
 		$path = str_replace("\\", "/", __FILE__);
@@ -36,8 +36,8 @@ Class collected_feedback extends CModule
 			$this->MODULE_VERSION = $arModuleVersion['VERSION'];
 			$this->MODULE_VERSION_DATE = $arModuleVersion['VERSION_DATE'];
 		}
-		$this->MODULE_NAME = GetMessage("COLLECTED_FEEDBACK_REG_MODULE_NAME");
-		$this->MODULE_DESCRIPTION = GetMessage("COLLECTED_FEEDBACK_REG_MODULE_DESCRIPTION");
+		$this->MODULE_NAME = GetMessage("KIT_FEEDBACK_REG_MODULE_NAME");
+		$this->MODULE_DESCRIPTION = GetMessage("KIT_FEEDBACK_REG_MODULE_DESCRIPTION");
 		$this->PARTNER_NAME = "ASDAFF";
 		$this->PARTNER_URI = "https://asdaff.github.io/";
 	}
@@ -49,7 +49,7 @@ Class collected_feedback extends CModule
 		$this->InstallDB();
 		$this->InstallIblock();
 		$GLOBALS["errors"] = $this->errors;
-		$APPLICATION->IncludeAdminFile(GetMessage("COLLECTED_FEEDBACK_REG_INSTALL_TITLE"), $_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/collected.feedback/install/step1.php");
+		$APPLICATION->IncludeAdminFile(GetMessage("KIT_FEEDBACK_REG_INSTALL_TITLE"), $_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/kit.feedback/install/step1.php");
 	}
 	function DoUninstall()
 	{
@@ -57,39 +57,39 @@ Class collected_feedback extends CModule
 		$step = IntVal($step);
 		if($step<2)
 		{
-			$APPLICATION->IncludeAdminFile(GetMessage("COLLECTED_FEEDBACK_REG_UNINSTALL_TITLE"), $_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/collected.feedback/install/unstep1.php");
+			$APPLICATION->IncludeAdminFile(GetMessage("KIT_FEEDBACK_REG_UNINSTALL_TITLE"), $_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/kit.feedback/install/unstep1.php");
 		}
 		elseif($step==2)
 		{
 			$this->UnInstallDB();
 			$this->UnInstallFiles();
 			$this->UnInstallEvents();
-			$APPLICATION->IncludeAdminFile(GetMessage("COLLECTED_FEEDBACK_REG_UNINSTALL_TITLE"), $_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/collected.feedback/install/unstep2.php");
+			$APPLICATION->IncludeAdminFile(GetMessage("KIT_FEEDBACK_REG_UNINSTALL_TITLE"), $_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/kit.feedback/install/unstep2.php");
 		}
 	}
 	function InstallDB()
 	{
-		RegisterModule("collected.feedback");
-		RegisterModuleDependences("iblock", "OnAfterIBlockUpdate", "collected.feedback", "CollectedFeedbackEvent", "OnAfterIBlockUpdateHandler", "100");
+		RegisterModule("kit.feedback");
+		RegisterModuleDependences("iblock", "OnAfterIBlockUpdate", "kit.feedback", "KitFeedbackEvent", "OnAfterIBlockUpdateHandler", "100");
 	}
 	function UnInstallDB()
 	{
-		COption::RemoveOption("collected.feedback");
-		UnRegisterModuleDependences("iblock", "OnAfterIBlockUpdate", "collected.feedback", "CollectedFeedbackEvent", "OnAfterIBlockUpdateHandler");
-		UnRegisterModule("collected.feedback");
+		COption::RemoveOption("kit.feedback");
+		UnRegisterModuleDependences("iblock", "OnAfterIBlockUpdate", "kit.feedback", "KitFeedbackEvent", "OnAfterIBlockUpdateHandler");
+		UnRegisterModule("kit.feedback");
 	}
 	function InstallFiles()
 	{
-		CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/collected.feedback/install/components", $_SERVER["DOCUMENT_ROOT"]."/bitrix/components", true, true);
-		CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/collected.feedback/install/images",$_SERVER["DOCUMENT_ROOT"]."/bitrix/images",true,true);
-		CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/collected.feedback/install/jquery.maskedinput",$_SERVER["DOCUMENT_ROOT"]."/bitrix/js/collected.feedback/jquery.maskedinput",true,true);
+		CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/kit.feedback/install/components", $_SERVER["DOCUMENT_ROOT"]."/bitrix/components", true, true);
+		CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/kit.feedback/install/images",$_SERVER["DOCUMENT_ROOT"]."/bitrix/images",true,true);
+		CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/kit.feedback/install/jquery.maskedinput",$_SERVER["DOCUMENT_ROOT"]."/bitrix/js/kit.feedback/jquery.maskedinput",true,true);
 		return true;
 	}
 	function UnInstallFiles()
 	{
-		DeleteDirFilesEx("/bitrix/components/collected/feedback.form");
-		DeleteDirFilesEx("/bitrix/images/collected.feedback");
-		DeleteDirFilesEx("/bitrix/js/collected.feedback");
+		DeleteDirFilesEx("/bitrix/components/kit/feedback.form");
+		DeleteDirFilesEx("/bitrix/images/kit.feedback");
+		DeleteDirFilesEx("/bitrix/js/kit.feedback");
 		return true;
 	}
 	function InstallIblock()
@@ -101,13 +101,13 @@ Class collected_feedback extends CModule
 		if(!$v = $res->GetNext())
 		{
 			$arFields = Array(
-				'ID'=>'collected_feedback',
+				'ID'=>'kit_feedback',
 				'SECTIONS'=>'Y',
 				'IN_RSS'=>'N',
 				'SORT'=>100,
 				'LANG'=>Array(
 					'ru'=>Array(
-						'NAME'=>GetMessage("COLLECTED_IB_FEEDBACK")
+						'NAME'=>GetMessage("KIT_IB_FEEDBACK")
 					)
 				)
 			);
@@ -126,8 +126,8 @@ Class collected_feedback extends CModule
 		$res = CIBlock::GetList(
 			Array(),
 			Array(
-				'TYPE'=>'collected_feedback',
-				'CODE'=>'collected_feedback'
+				'TYPE'=>'kit_feedback',
+				'CODE'=>'kit_feedback'
 			),
 			true
 		);
@@ -140,9 +140,9 @@ Class collected_feedback extends CModule
 				$ib = new CIBlock;
 				$arFields = Array(
 					"ACTIVE" => "Y",
-					"NAME" => GetMessage("COLLECTED_IB_FEEDBACK"),
-					"CODE" => "collected_feedback",
-					"IBLOCK_TYPE_ID" => "collected_feedback",
+					"NAME" => GetMessage("KIT_IB_FEEDBACK"),
+					"CODE" => "kit_feedback",
+					"IBLOCK_TYPE_ID" => "kit_feedback",
 					"INDEX_ELEMENT" => "N",
 					"INDEX_SECTION" => "N",
 					"WORKFLOW" => "N",
@@ -151,7 +151,7 @@ Class collected_feedback extends CModule
 				$ib->Add($arFields);
 			}
 		//add props
-		$res = CIBlock::GetList(Array(),Array("CODE"=>'collected_feedback'),true);
+		$res = CIBlock::GetList(Array(),Array("CODE"=>'kit_feedback'),true);
 		$arRes = $res->Fetch();
 		$rsProp = CIBlockProperty::GetList(Array("sort"=>"asc", "name"=>"asc"), Array("ACTIVE"=>"Y", "IBLOCK_ID"=>$arRes["ID"]));
 		while ($arr=$rsProp->Fetch())
@@ -165,7 +165,7 @@ Class collected_feedback extends CModule
 		if(!in_array("FIO", $arPropsCode))
 		{
 			$arFields = Array(
-				"NAME" => GetMessage("COLLECTED_IB_FIO"),
+				"NAME" => GetMessage("KIT_IB_FIO"),
 				"ACTIVE" => "Y",
 				"SORT" => "100",
 				"CODE" => "FIO",
@@ -177,7 +177,7 @@ Class collected_feedback extends CModule
 		if(!in_array("PHONE", $arPropsCode))
 		{
 			$arFields = Array(
-				"NAME" => GetMessage("COLLECTED_IB_PHONE"),
+				"NAME" => GetMessage("KIT_IB_PHONE"),
 				"ACTIVE" => "Y",
 				"SORT" => "100",
 				"CODE" => "PHONE",
@@ -189,7 +189,7 @@ Class collected_feedback extends CModule
 		if(!in_array("EMAIL", $arPropsCode))
 		{
 			$arFields = Array(
-				"NAME" => GetMessage("COLLECTED_IB_EMAIL"),
+				"NAME" => GetMessage("KIT_IB_EMAIL"),
 				"ACTIVE" => "Y",
 				"SORT" => "110",
 				"CODE" => "EMAIL",
@@ -199,7 +199,7 @@ Class collected_feedback extends CModule
 			$PropID = $ibp->Add($arFields);
 		}
 		$arFields = Array(
-			"NAME" => GetMessage("COLLECTED_IB_FILE"),
+			"NAME" => GetMessage("KIT_IB_FILE"),
 			"ACTIVE" => "Y",
 			"SORT" => "120",
 			"CODE" => "FILE",
@@ -222,7 +222,7 @@ Class collected_feedback extends CModule
 		if(!in_array("USERIP", $arPropsCode))
 		{
 			$arFields = Array(
-				"NAME" => GetMessage("COLLECTED_IB_USERIP"),
+				"NAME" => GetMessage("KIT_IB_USERIP"),
 				"ACTIVE" => "Y",
 				"CODE" => "USERIP",
 				"PROPERTY_TYPE" => "S",
@@ -233,7 +233,7 @@ Class collected_feedback extends CModule
 		if(!in_array("USER_ID", $arPropsCode))
 		{
 			$arFields = Array(
-				"NAME" => GetMessage("COLLECTED_IB_USR"),
+				"NAME" => GetMessage("KIT_IB_USR"),
 				"ACTIVE" => "Y",
 				"CODE" => "USER_ID",
 				"PROPERTY_TYPE" => "S",
@@ -245,7 +245,7 @@ Class collected_feedback extends CModule
 		if(!in_array("HREF_LINK", $arPropsCode))
 		{
 			$arFields = Array(
-				"NAME" => GetMessage("COLLECTED_IB_LINK"),
+				"NAME" => GetMessage("KIT_IB_LINK"),
 				"ACTIVE" => "Y",
 				"CODE" => "HREF_LINK",
 				"PROPERTY_TYPE" => "S",

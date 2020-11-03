@@ -3,10 +3,10 @@
  * Copyright (c) 20/12/2019 Created By/Edited By ASDAFF asdaff.asad@yandex.ru
  */
 
-$module_id = 'collected.feedback';
+$module_id = 'kit.feedback';
 
 IncludeModuleLangFile(__FILE__);
-require_once($_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/collected.feedback/include.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/kit.feedback/include.php');
 IncludeModuleLangFile($_SERVER["DOCUMENT_ROOT"].BX_ROOT."/modules/main/options.php");
 
 function ShowParamsHTMLByArray($module_id, $arParams)
@@ -48,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD']=='GET' && strlen($RestoreDefaults)>0 && check_bit
 
 $tabControl = new CAdminTabControl('tabControl', $aTabs);
 
-$siteK = COption::GetOptionString('collected.feedback', 'ASSEMBLY_RECAPTCHA_SITE_KEY', '');
-$secretK = COption::GetOptionString('collected.feedback', 'ASSEMBLY_RECAPTCHA_SECRET_KEY', '');
+$siteK = COption::GetOptionString('kit.feedback', 'ASSEMBLY_RECAPTCHA_SITE_KEY', '');
+$secretK = COption::GetOptionString('kit.feedback', 'ASSEMBLY_RECAPTCHA_SECRET_KEY', '');
 
 //Save options
 if($_POST["Update"] && strlen($Update)>0 && check_bitrix_sessid())
@@ -74,7 +74,7 @@ if($_POST["Update"] && strlen($Update)>0 && check_bitrix_sessid())
 
 	if($_POST['ASSEMBLY_COMMON_CRM']!='Y')
 	{
-		COption::SetOptionString("collected.feedback", "ASSEMBLY_COMMON_CRM",'N');
+		COption::SetOptionString("kit.feedback", "ASSEMBLY_COMMON_CRM",'N');
 	}
 }
 ?>
@@ -87,7 +87,7 @@ CJSCore::Init(array("jquery"));
 
 <?$tabControl->BeginNextTab();?>
 	<?
-	$all = COption::GetOptionString('collected.feedback', 'ASSEMBLY_COMMON_CRM', 'Y');
+	$all = COption::GetOptionString('kit.feedback', 'ASSEMBLY_COMMON_CRM', 'Y');
 	if(isset($_REQUEST["msite"]))
 	{
 		$all = $_REQUEST["msite"];
@@ -97,7 +97,7 @@ CJSCore::Init(array("jquery"));
 	<tr>
 		<td valign='top' width='50%' class='field-name'><label for='ASSEMBLY_COMMON_CRM'><?=GetMessage('ASSEMBLY_COMMON_CRM')?><?=$all == 'Y' ? GetMessage('ASSEMBLY_COMMON_CRM_AFTER_UNCHECK') : GetMessage('ASSEMBLY_COMMON_CRM_AFTER_CHECK')?></label></td>
 		<td valign='middle' width='50%'>
-			<input type='checkbox' id='ASSEMBLY_COMMON_CRM' name='ASSEMBLY_COMMON_CRM' value='<?=$all?>' <?=$all == 'Y' ? ' checked' : ''?> onChange = 'collected_func()'>
+			<input type='checkbox' id='ASSEMBLY_COMMON_CRM' name='ASSEMBLY_COMMON_CRM' value='<?=$all?>' <?=$all == 'Y' ? ' checked' : ''?> onChange = 'kit_func()'>
 		</td>
 	</tr>
 	<?if ($all != 'N'):?>
@@ -119,20 +119,20 @@ CJSCore::Init(array("jquery"));
 	<?endif;?>
 
 <style>
-#collected_description_full{
+#kit_description_full{
 	display:none;
 	transition:height 250ms;
 }
-#collected_description_close_btn{
+#kit_description_close_btn{
 	display:none;
 }
-.collected_description_open_text{
+.kit_description_open_text{
 	border-bottom:1px solid;
 	color:#2276cc !important;
 	cursor:pointer;
 	transition:color 0.3s linear 0s;
 }
-.collected_events th{
+.kit_events th{
 	background:#dddddd none repeat scroll 0 0;
 	font-style:normal;
 	margin:2px;
@@ -143,9 +143,9 @@ CJSCore::Init(array("jquery"));
 </style>
 <script language="JavaScript">
 $(function(){
-	var assembly_obtn = $('#collected_description_open_btn'),
-	assembly_cbtn = $('#collected_description_close_btn'),
-	full = $('#collected_description_full');
+	var assembly_obtn = $('#kit_description_open_btn'),
+	assembly_cbtn = $('#kit_description_close_btn'),
+	full = $('#kit_description_full');
 
 	assembly_obtn.click(function(){
 		full.show(175);
@@ -174,7 +174,7 @@ function RestoreDefaults()
 <?$tabControl->End();?>
 </form>
 <script type="text/javascript" >
-function collected_func()
+function kit_func()
 {
 	var mst = document.getElementById('ASSEMBLY_COMMON_CRM').checked ? 'Y' : 'N';
 

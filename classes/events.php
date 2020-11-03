@@ -3,15 +3,15 @@
  * Copyright (c) 20/12/2019 Created By/Edited By ASDAFF asdaff.asad@yandex.ru
  */
 
-class CollectedFeedbackEvent
+class KitFeedbackEvent
 {
 	function OnAfterIBlockUpdateHandler(&$arFields)
 	{
 		if($arFields["RESULT"])
 		{
-			if($arFields["CODE"] == "collected_feedback" || $arFields["IBLOCK_TYPE_ID"] == "collected_feedback")
+			if($arFields["CODE"] == "kit_feedback" || $arFields["IBLOCK_TYPE_ID"] == "kit_feedback")
 			{
-				BXClearCache(true, "/collected/feedback");
+				BXClearCache(true, "/kit/feedback");
 			}
 		}
 	}

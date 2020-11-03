@@ -56,7 +56,7 @@ $ASSEMBLY = "FID" . $arParams["FORM_ID"];
 					ASSEMBLYpopup.init(param);
 			});
 
-<?			if($arParams['ASSEMBLY_LOAD_PAGE']=='Y' && $APPLICATION->get_cookie("COLLECTED_FDB_SEND_".$ASSEMBLY) != 'Y'):?>
+<?			if($arParams['ASSEMBLY_LOAD_PAGE']=='Y' && $APPLICATION->get_cookie("KIT_FDB_SEND_".$ASSEMBLY) != 'Y'):?>
 			$(window).load(function(){
 				if(typeof ASSEMBLYpopup_<?=$ASSEMBLY?>!='undefined'){
 					if(typeof ASSEMBLYpopup_<?=$ASSEMBLY?>.param.openDelay!='undefined')
@@ -285,10 +285,10 @@ $ASSEMBLY = "FID" . $arParams["FORM_ID"];
 <?		if($arParams['LOCAL_REDIRECT_ENABLE'] == 'Y' && strlen($arParams['LOCAL_REDIRECT_URL']) > 0
 			&& ($arResult["success_" . $ASSEMBLY] == "yes" || $_REQUEST["success_" . $ASSEMBLY] == "yes")
 		):?>
-		function CollectedFeedbackRedirect_<?=$ASSEMBLY?>(){
+		function KitFeedbackRedirect_<?=$ASSEMBLY?>(){
 			document.location.href = '<?=(trim(htmlspecialcharsEx($arParams['LOCAL_REDIRECT_URL'])));?>';
 		}
-		CollectedFeedbackRedirect_<?=$ASSEMBLY?>();
+		KitFeedbackRedirect_<?=$ASSEMBLY?>();
 <?		endif?>
 	</script>
 <?}?>

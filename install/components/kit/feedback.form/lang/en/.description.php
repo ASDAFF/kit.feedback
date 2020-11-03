@@ -6,5 +6,5 @@
 $MESS['ASSEMBLY_DESC_FAQ_ADD_NAME'] = "Feedback form";
 $MESS['ASSEMBLY_DESC_REVIEW_ADD_DESC'] = "Feedback form that allows site visitors to send messages to the owners of the resource";
 $MESS['ASSEMBLY_DESC_FORMS_SECTION_NAME'] = "Forms";
-$MESS['ASSEMBLY_DESC_SECTION_SECTION'] = 'COLLECTED';
+$MESS['ASSEMBLY_DESC_SECTION_SECTION'] = 'KIT';
 ?>

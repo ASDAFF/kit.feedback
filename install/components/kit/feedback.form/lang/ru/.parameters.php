@@ -3,7 +3,7 @@
  * Copyright (c) 20/12/2019 Created By/Edited By ASDAFF asdaff.asad@yandex.ru
  */
 
-$MESS['COLLECTED_IS'] = "Магазин готовых решений для 1С-Битрикс";
+$MESS['KIT_IS'] = "Магазин готовых решений для 1С-Битрикс";
 $MESS['F_BBC_MAIL'] = "Дополнительные E-mail получателей почтовых уведомлений (через запятую)";
 $MESS['F_USE_CAPTCHA'] = "Использовать CAPTCHA";
 $MESS['F_IBLOCK_TYPE'] = "Тип инфоблока";
@@ -64,7 +64,7 @@ $MESS['COLLECT_AGREEMENT'] = "Даю согласие на обработку п
 $MESS['F_CAPTCHA_TYPE'] = "Тип CAPTCHA";
 $MESS['F_CAPTCHA_BITRIX'] = "Стандартная CAPTCHA 1C-Битрикс";
 $MESS['F_CAPTCHA_GOOGLE'] = "reCAPTCHA Google";
-$MESS["CAPTCHA_TYPE_TIP"] = "Для работы сервиса reCAPTCHA необходимо зарегистрировать сайт в Google: https://www.google.com/recaptcha/admin#list . Полученные ключи следует ввести в настройках модуля: http://<ваш_сайт>/bitrix/admin/settings.php?lang=".LANGUAGE_ID."&mid=collected.feedback .
+$MESS["CAPTCHA_TYPE_TIP"] = "Для работы сервиса reCAPTCHA необходимо зарегистрировать сайт в Google: https://www.google.com/recaptcha/admin#list . Полученные ключи следует ввести в настройках модуля: http://<ваш_сайт>/bitrix/admin/settings.php?lang=".LANGUAGE_ID."&mid=kit.feedback .
 Эти ключи нужны для связи между вашим сайтом и Google. Никому их не сообщайте.";
 $MESS['F_RECAPTCHA_THEME'] = "Цветовая тема виджета reCAPTCHA";
 $MESS['RECAPTCHA_THEME_DARK'] = "Темная";

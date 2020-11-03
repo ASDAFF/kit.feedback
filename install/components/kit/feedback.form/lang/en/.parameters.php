@@ -3,7 +3,7 @@
  * Copyright (c) 20/12/2019 Created By/Edited By ASDAFF asdaff.asad@yandex.ru
  */
 
-$MESS['COLLECTED_IS'] = "Store ready-made solutions for Bitrix";
+$MESS['KIT_IS'] = "Store ready-made solutions for Bitrix";
 $MESS['F_BBC_MAIL'] = "Additional Email (separated by commas)";
 $MESS['F_USE_CAPTCHA'] = "Use CAPTCHA";
 $MESS['F_IBLOCK_TYPE'] = "Information block type";
@@ -63,7 +63,7 @@ $MESS["ASSEMBLY_LOAD_PAGE"] = "Load after load of the page";
 $MESS['F_CAPTCHA_TYPE'] = "Type CAPTCHA";
 $MESS['F_CAPTCHA_BITRIX'] = "Standard CAPTCHA 1C-Bitrix";
 $MESS['F_CAPTCHA_GOOGLE'] = "reCAPTCHA Google";
-$MESS["CAPTCHA_TYPE_TIP"] = "To use reCAPTCHA service, you need to register a site in Google:. https://www.google.com/recaptcha/admin#list These keys must be entered in the module settings: http://<your_site>/bitrix/admin/settings.php?lang=".LANGUAGE_ID."&mid=collected.feedback.
+$MESS["CAPTCHA_TYPE_TIP"] = "To use reCAPTCHA service, you need to register a site in Google:. https://www.google.com/recaptcha/admin#list These keys must be entered in the module settings: http://<your_site>/bitrix/admin/settings.php?lang=".LANGUAGE_ID."&mid=kit.feedback.
 These keys are needed for communication between your website and Google. No they do not report. ";
 $MESS['F_RECAPTCHA_THEME'] = "Color reCAPTCHA widget theme";
 $MESS['RECAPTCHA_THEME_DARK'] = "Dark";

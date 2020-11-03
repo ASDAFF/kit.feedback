@@ -4,9 +4,9 @@
  */
 
 CModule::AddAutoloadClasses(
-	"collected.feedback",
+	"kit.feedback",
 	array(
-		"CollectedFeedbackEvent" => "classes/events.php",
+		"KitFeedbackEvent" => "classes/events.php",
 	)
 )
 ?>

@@ -16,5 +16,5 @@ $MESS['ASSEMBLY_COMMON_CRM_AFTER_CHECK'] = "<br/><i>After you check this box, wo
 $MESS['ASSEMBLY_COMMON_CRM_AFTER_UNCHECK'] = "<br/><i>Once you clear this checkbox, would display settings for each site.</i>";
 $MESS['ASSEMBLY_RECAPTCHA_SUB'] = "Widget reCAPTCHA settings";
 
-$MESS ['COLLECTED_IS'] = "Store ready-made solutions for Bitrix";
+$MESS ['KIT_IS'] = "Store ready-made solutions for Bitrix";
 ?>

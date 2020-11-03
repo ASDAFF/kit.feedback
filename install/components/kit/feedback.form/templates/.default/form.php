@@ -340,17 +340,17 @@
 
 <?					if($fVerComposite) $frame2 = $this->createFrame()->begin('loading... <img src="/bitrix/themes/.default/start_menu/main/loading.gif">');?>
 							<div class="collect_pole_captcha">
-								<div class="g-recaptcha" id="html_element_recaptcha_<?=$ASSEMBLY?>" onload="CollectedFeedbackOnload_<?=$ASSEMBLY?>()" data-sitekey="<?=$arResult["SITE_KEY"]?>"></div>
+								<div class="g-recaptcha" id="html_element_recaptcha_<?=$ASSEMBLY?>" onload="KitFeedbackOnload_<?=$ASSEMBLY?>()" data-sitekey="<?=$arResult["SITE_KEY"]?>"></div>
 								<span class="collect_captcha_reload" onclick="grecaptcha.reset();return false;"></span>
 							</div>
 							
 							<script type="text/javascript">
-							var CollectedFeedbackOnload_<?=$ASSEMBLY?> = function(){
+							var KitFeedbackOnload_<?=$ASSEMBLY?> = function(){
 								grecaptcha.render('html_element_recaptcha_<?=$ASSEMBLY?>',{'sitekey':'<?=$arResult["SITE_KEY"];?>',
 									'theme':'<?=$arParams["RECAPTCHA_THEME"];?>','type':'<?=$arParams["RECAPTCHA_TYPE"];?>'});
 							};
 <?							if($arParams['ASSEMBLY_LINK_POPUP']=='Y'):?>
-								$.getScript('https://www.google.com/recaptcha/api.js?onload=CollectedFeedbackOnload_<?=$ASSEMBLY?>&render=explicit&hl=<?=LANGUAGE_ID?>')
+								$.getScript('https://www.google.com/recaptcha/api.js?onload=KitFeedbackOnload_<?=$ASSEMBLY?>&render=explicit&hl=<?=LANGUAGE_ID?>')
 								  .fail(function( jqxhr, settings, exception ) {
 									console.log('Error loading google :)')
 								});								
@@ -394,7 +394,7 @@
 	<?if ($arParams['USER_CONSENT'] == 'Y'):?>
      <?$APPLICATION->IncludeComponent(
       "bitrix:main.userconsent.request",
-      "collected_fb",
+      "kit_fb",
       array(
           "ID" => $arParams["USER_CONSENT_ID"],
           "IS_CHECKED" => $arParams["USER_CONSENT_IS_CHECKED"],
@@ -421,7 +421,7 @@
 			
 		});
 	</script>
-	<?$path_userconsent = $this->__folder."/bitrix/main.userconsent.request/collected_fb";?>
+	<?$path_userconsent = $this->__folder."/bitrix/main.userconsent.request/kit_fb";?>
 	<script type="text/javascript" src="<?=$path_userconsent?>/user_consent.js"></script>
 	<link href="<?=$path_userconsent?>/user_consent.css" type="text/css"  rel="stylesheet" />
 

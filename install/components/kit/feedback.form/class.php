@@ -5,7 +5,7 @@
 
 if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 
-class CCollectedFeedbackThemes extends CBitrixComponent
+class CKitFeedbackThemes extends CBitrixComponent
 {
 	protected function getColorValues($color_)
 	{

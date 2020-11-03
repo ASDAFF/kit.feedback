@@ -65,7 +65,7 @@ if(!CModule::IncludeModule("iblock"))
 	return;
 }
 
-if(!CModule::IncludeModule("collected.feedback"))
+if(!CModule::IncludeModule("kit.feedback"))
 {
 	ShowError(GetMessage("ASSEMBLY_FEEDBACK_NOT_INSTALLED"));
 	return;
@@ -73,7 +73,7 @@ if(!CModule::IncludeModule("collected.feedback"))
 
 $arFilter = array("PROPERTY_TYPE" => "F");
 
-$cachePath = "/collected/feedback";
+$cachePath = "/kit/feedback";
 
 $obCache = new CPHPCache();
 if($obCache->InitCache(86400, serialize(array($arFilter, $arParams["IBLOCK_ID"], "iblock")), $cachePath))
@@ -388,15 +388,15 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ASSEMBLY] 
 	{
 		if($arParams["CAPTCHA_TYPE"] == "recaptcha") // Google reCAPTCHA
 		{
-			if(COption::GetOptionString('collected.feedback', 'ASSEMBLY_COMMON_CRM') == "Y")
+			if(COption::GetOptionString('kit.feedback', 'ASSEMBLY_COMMON_CRM') == "Y")
 			{
-				$site_key = COption::GetOptionString('collected.feedback', 'ASSEMBLY_RECAPTCHA_SITE_KEY');
-				$server_key = COption::GetOptionString('collected.feedback', 'ASSEMBLY_RECAPTCHA_SECRET_KEY');
+				$site_key = COption::GetOptionString('kit.feedback', 'ASSEMBLY_RECAPTCHA_SITE_KEY');
+				$server_key = COption::GetOptionString('kit.feedback', 'ASSEMBLY_RECAPTCHA_SECRET_KEY');
 			}
 			else
 			{
-				$site_key = COption::GetOptionString('collected.feedback', 'ASSEMBLY_RECAPTCHA_SITE_KEY_'.SITE_ID);
-				$server_key = COption::GetOptionString('collected.feedback', 'ASSEMBLY_RECAPTCHA_SECRET_KEY_'.SITE_ID);
+				$site_key = COption::GetOptionString('kit.feedback', 'ASSEMBLY_RECAPTCHA_SITE_KEY_'.SITE_ID);
+				$server_key = COption::GetOptionString('kit.feedback', 'ASSEMBLY_RECAPTCHA_SECRET_KEY_'.SITE_ID);
 			}
 
 			$strResponse = $_POST["g-recaptcha-response"];
@@ -560,7 +560,7 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ASSEMBLY] 
 					{
 						if (in_array($arProps["CODE"], $arParams[$param]))
 						{
-							$_SESSION["COLLECTED_FB_" . $arProps["CODE"]] = htmlspecialcharsbx($arProps["VALUE"]);
+							$_SESSION["KIT_FB_" . $arProps["CODE"]] = htmlspecialcharsbx($arProps["VALUE"]);
 							break;
 						}
 					}
@@ -781,7 +781,7 @@ elseif($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["FEEDBACK_FORM_".$ASSEMBLY] 
 			// saving in cookies submit of form - if popup
 			if ($arParams['ASSEMBLY_LOAD_PAGE'] == 'Y' && $arParams['ASSEMBLY_LINK_POPUP'] == 'Y')
 			{
-				$APPLICATION->set_cookie("COLLECTED_FDB_SEND_" . $ASSEMBLY, "Y", time() + 2592000); // 60*60*24*30
+				$APPLICATION->set_cookie("KIT_FDB_SEND_" . $ASSEMBLY, "Y", time() + 2592000); // 60*60*24*30
 			}
 		}
 	}
@@ -875,7 +875,7 @@ foreach($arProp as $prop)
 		$arField["REQUIRED"] = "Y";
 
 	if($prop["CODE"] == "CITY")
-		if(CModule::IncludeModule("collected.geoip"))
+		if(CModule::IncludeModule("kit.geoip"))
 		{
 			$arGeoIP = ASSEMBLY_GeoIP::GetAddr();
 			$arField["DEFAULT_VALUE"] = $arGeoIP["city"];
@@ -975,14 +975,14 @@ foreach($arProp as $prop)
 		{
 			if(in_array($prop["CODE"], $arParams["PROPS_AUTOCOMPLETE_PERSONAL_PHONE"]))
 			{
-				if(isset($_SESSION["COLLECTED_FB_".$prop["CODE"]]))
+				if(isset($_SESSION["KIT_FB_".$prop["CODE"]]))
 				{
-					$arField["AUTOCOMPLETE_VALUE"] = htmlspecialcharsbx($_SESSION["COLLECTED_FB_".$prop["CODE"]]);
+					$arField["AUTOCOMPLETE_VALUE"] = htmlspecialcharsbx($_SESSION["KIT_FB_".$prop["CODE"]]);
 				}
 				elseif($arUser = CUser::GetByID($USER->GetID())->Fetch())
 				{
 					$arField["AUTOCOMPLETE_VALUE"] = $arUser["PERSONAL_PHONE"];
-					$_SESSION["COLLECTED_FB_".$prop["CODE"]] = htmlspecialcharsbx($arUser["PERSONAL_PHONE"]);
+					$_SESSION["KIT_FB_".$prop["CODE"]] = htmlspecialcharsbx($arUser["PERSONAL_PHONE"]);
 				}
 			}
 		}
@@ -996,9 +996,9 @@ foreach($arProp as $prop)
 			{
 				if(in_array($prop["CODE"], $arParams[$param]))
 				{
-					if(strlen($_SESSION["COLLECTED_FB_".$prop["CODE"]]) > 0)
+					if(strlen($_SESSION["KIT_FB_".$prop["CODE"]]) > 0)
 					{
-						$arField["AUTOCOMPLETE_VALUE"] = htmlspecialcharsbx($_SESSION["COLLECTED_FB_".$prop["CODE"]]);
+						$arField["AUTOCOMPLETE_VALUE"] = htmlspecialcharsbx($_SESSION["KIT_FB_".$prop["CODE"]]);
 						break;
 					}
 				}
@@ -1035,11 +1035,11 @@ if(!empty($arTSect))
 
 if($arParams["USE_CAPTCHA"] == "Y" && $arParams["CAPTCHA_TYPE"] == "recaptcha")
 {
-	$common_crm = COption::GetOptionString('collected.feedback', 'ASSEMBLY_COMMON_CRM');
+	$common_crm = COption::GetOptionString('kit.feedback', 'ASSEMBLY_COMMON_CRM');
 	if($common_crm == "Y")
-		$arResult["SITE_KEY"] = COption::GetOptionString('collected.feedback', 'ASSEMBLY_RECAPTCHA_SITE_KEY');
+		$arResult["SITE_KEY"] = COption::GetOptionString('kit.feedback', 'ASSEMBLY_RECAPTCHA_SITE_KEY');
 	else
-		$arResult["SITE_KEY"] = COption::GetOptionString('collected.feedback', 'ASSEMBLY_RECAPTCHA_SITE_KEY_'.SITE_ID);
+		$arResult["SITE_KEY"] = COption::GetOptionString('kit.feedback', 'ASSEMBLY_RECAPTCHA_SITE_KEY_'.SITE_ID);
 }
 
 $this->IncludeComponentTemplate();
