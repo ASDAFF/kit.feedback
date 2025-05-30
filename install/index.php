@@ -20,7 +20,7 @@ Class kit_feedback extends CModule
 	var $MODULE_CSS;
 	var $MODULE_GROUP_RIGHTS = "Y";
 
-	function kit_feedback()
+    function __construct()
 	{
 		$arModuleVersion = array();
 		$path = str_replace("\\", "/", __FILE__);
