@@ -91,10 +91,13 @@ elseif($obCache->StartDataCache())
 	}
 	$obCache->EndDataCache($arTypeFile);
 }
-if(!isset($arTypeFile))
-	$arTypeFile = array();
+if(!isset($arTypeFile)) {
+    $arTypeFile = array();
+}
 
-$codeFileFields = count($_POST["codeFileFields"]);
+if (is_array($_POST["codeFileFields"]) && count($_POST["codeFileFields"]) > 0) {
+    $codeFileFields = count($_POST["codeFileFields"]);
+}
 
 if(is_array($_FILES["myFile"]["name"]))
 {
